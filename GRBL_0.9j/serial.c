@@ -1,4 +1,4 @@
-/*
+ï»¿/*
   serial.c - Low level functions for sending and recieving bytes via the serial port
   Part of Grbl
 
@@ -58,7 +58,7 @@ uint8_t serial_get_tx_buffer_count(void)
 void serial_init(void)
 {
 #if defined(CPU_MAP_ATMEGA328P) || defined(CPU_MAP_ATMEGA2560)
- // Set baud rate ÉèÖÃ²¨ÌØÂÊ
+ // Set baud rate è®¾ç½®æ³¢ç‰¹ç‡
   #if BAUD_RATE < 57600
     uint16_t UBRR0_value = ((F_CPU / (8L * BAUD_RATE)) - 1)/2 ;
     UCSR0A &= ~(1 << U2X0); // baud doubler off  - Only needed on Uno XXX
@@ -73,14 +73,14 @@ void serial_init(void)
   UCSR0B |= 1<<RXEN0;
   UCSR0B |= 1<<TXEN0;
 	
-  // enable interrupt on complete reception of a byte	 ÔÚÍê³ÉÒ»¸ö×Ö½ÚµÄ½ÓÊÕÊ±Ê¹ÄÜÖĞ¶Ï
+  // enable interrupt on complete reception of a byte	 åœ¨å®Œæˆä¸€ä¸ªå­—èŠ‚çš„æ¥æ”¶æ—¶ä½¿èƒ½ä¸­æ–­
   UCSR0B |= 1<<RXCIE0;
 	  
-  // defaults to 8-bit, no parity, 1 stop bit	Ä¬ÈÏÊ¹ÓÃ8Î»Êı¾İÎ»£¬1Î»Í£Ö¹Î»£¬ÎŞĞ£ÑéµÄĞÎÊ½
+  // defaults to 8-bit, no parity, 1 stop bit	é»˜è®¤ä½¿ç”¨8ä½æ•°æ®ä½ï¼Œ1ä½åœæ­¢ä½ï¼Œæ— æ ¡éªŒçš„å½¢å¼
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
-   HW_USART_Init(BAUD_RATE);	//³õÊ¼»¯´®¿Ú£¬²¨ÌØÂÊ¿ÉÒÔÔÚconfig.hÎÄ¼şÖĞÉèÖÃ£¬Ä¬ÈÏÎª115200
+   HW_USART_Init(BAUD_RATE);	//åˆå§‹åŒ–ä¸²å£ï¼Œæ³¢ç‰¹ç‡å¯ä»¥åœ¨config.hæ–‡ä»¶ä¸­è®¾ç½®ï¼Œé»˜è®¤ä¸º115200
 #endif		//end of CPU_MAP_STM32F10X
  
 }
@@ -216,22 +216,22 @@ void USART1_IRQHandler(void)
 	uint8_t data;
 	uint8_t next_head;
 	uint8_t tail; 
-	if(USART_GetFlagStatus(USART1 , USART_IT_RXNE)!=RESET)		//½ÓÊÕ¼Ä´æÆ÷·Ç¿ÕÖĞ¶Ï
+	if(USART_GetFlagStatus(USART1 , USART_IT_RXNE)!=RESET)		//æ¥æ”¶å¯„å­˜å™¨éç©ºä¸­æ–­
 	{
-		data=USART_ReceiveData(USART1);		//¶ÁÈ¡×Ö·û
+		data=USART_ReceiveData(USART1);		//è¯»å–å­—ç¬¦
 		// Pick off realtime command characters directly from the serial stream. These characters are
 		// not passed into the buffer, but these set system state flag bits for realtime execution.
-		//Ö±½Ó´Ó´®ĞĞÁ÷ÖĞÑ¡È¡ÊµÊ±ÃüÁî×Ö·û¡£ÕâĞ©×Ö·û²»´«µİµ½»º³åÇø£¬µ«ÕâĞ©×Ö·ûÉèÖÃÏµÍ³×´Ì¬±êÖ¾Î»ÓÃÓÚÊµÊ±Ö´ĞĞ¡£
+		//ç›´æ¥ä»ä¸²è¡Œæµä¸­é€‰å–å®æ—¶å‘½ä»¤å­—ç¬¦ã€‚è¿™äº›å­—ç¬¦ä¸ä¼ é€’åˆ°ç¼“å†²åŒºï¼Œä½†è¿™äº›å­—ç¬¦è®¾ç½®ç³»ç»ŸçŠ¶æ€æ ‡å¿—ä½ç”¨äºå®æ—¶æ‰§è¡Œã€‚
 		switch (data) {
-			case CMD_STATUS_REPORT: bit_true_atomic(sys_rt_exec_state, EXEC_STATUS_REPORT); break; // Set as true  ÉèÎªÕæ
-			case CMD_CYCLE_START:   bit_true_atomic(sys_rt_exec_state, EXEC_CYCLE_START); break; // Set as true	   ÉèÎªÕæ
-			case CMD_FEED_HOLD:     bit_true_atomic(sys_rt_exec_state, EXEC_FEED_HOLD); break; // Set as true	   ÉèÎªÕæ
-			case CMD_SAFETY_DOOR:   bit_true_atomic(sys_rt_exec_state, EXEC_SAFETY_DOOR); break; // Set as true	   ÉèÎªÕæ
-			case CMD_RESET:         mc_reset(); break; // Call motion control reset routine. µ÷ÓÃÔË¶¯¿ØÖÆ¸´Î»³ÌĞò¡£
-			default: // Write character to buffer   Ğ´×Ö·ûµ½»º³åÇø 
+			case CMD_STATUS_REPORT: bit_true_atomic(sys_rt_exec_state, EXEC_STATUS_REPORT); break; // Set as true  è®¾ä¸ºçœŸ
+			case CMD_CYCLE_START:   bit_true_atomic(sys_rt_exec_state, EXEC_CYCLE_START); break; // Set as true	   è®¾ä¸ºçœŸ
+			case CMD_FEED_HOLD:     bit_true_atomic(sys_rt_exec_state, EXEC_FEED_HOLD); break; // Set as true	   è®¾ä¸ºçœŸ
+			case CMD_SAFETY_DOOR:   bit_true_atomic(sys_rt_exec_state, EXEC_SAFETY_DOOR); break; // Set as true	   è®¾ä¸ºçœŸ
+			case CMD_RESET:         mc_reset(); break; // Call motion control reset routine. è°ƒç”¨è¿åŠ¨æ§åˆ¶å¤ä½ç¨‹åºã€‚
+			default: // Write character to buffer   å†™å­—ç¬¦åˆ°ç¼“å†²åŒº 
 			next_head = serial_rx_buffer_head + 1;
   		    if (next_head == RX_BUFFER_SIZE) { next_head = 0; }
-    		// Write data to buffer unless it is full.	½«Êı¾İĞ´Èë»º³åÇø£¬³ı·ÇËüÒÑÂú¡£
+    		// Write data to buffer unless it is full.	å°†æ•°æ®å†™å…¥ç¼“å†²åŒºï¼Œé™¤éå®ƒå·²æ»¡ã€‚
       		if (next_head != serial_rx_buffer_tail) {
 	        	serial_rx_buffer[serial_rx_buffer_head] = data;
 	        	serial_rx_buffer_head = next_head;    
@@ -247,11 +247,11 @@ void USART1_IRQHandler(void)
 	      	//TODO: else alarm on overflow?
   		}
 	}
-	if (USART_GetITStatus(USART1, USART_IT_TXE)!=RESET) 		//·¢ËÍ¼Ä´æÆ÷¿ÕÖĞ¶Ï
+	if (USART_GetITStatus(USART1, USART_IT_TXE)!=RESET) 		//å‘é€å¯„å­˜å™¨ç©ºä¸­æ–­
 	{
 		tail = serial_tx_buffer_tail; 
 		// Temporary serial_tx_buffer_tail (to optimize for volatile)
-		//ÁÙÊ±µÄserial_rx_buffer_tail±äÁ¿£¨×îºÃÉèÖÃÎªvolatileÀàĞÍ£©
+		//ä¸´æ—¶çš„serial_rx_buffer_tailå˜é‡ï¼ˆæœ€å¥½è®¾ç½®ä¸ºvolatileç±»å‹ï¼‰
 
 		#ifdef ENABLE_XONXOFF
 		if (flow_ctrl == SEND_XOFF) { 
@@ -263,10 +263,10 @@ void USART1_IRQHandler(void)
 		} else
 		#endif
 		{ 
-			// Send a byte from the buffer	 ·¢ËÍÒ»¸ö»º³åÇøµÄ×Ö·û
-			USART_SendData(USART1, serial_tx_buffer[tail]);						//·¢ËÍ×Ö·û
+			// Send a byte from the buffer	 å‘é€ä¸€ä¸ªç¼“å†²åŒºçš„å­—ç¬¦
+			USART_SendData(USART1, serial_tx_buffer[tail]);						//å‘é€å­—ç¬¦
 			
-			// Update tail position	 ¸üĞÂÎ²ÏÂ±êµÄÎ»ÖÃ
+			// Update tail position	 æ›´æ–°å°¾ä¸‹æ ‡çš„ä½ç½®
 			tail++;
 			if (tail == TX_BUFFER_SIZE) { tail = 0; }
 			
@@ -274,10 +274,10 @@ void USART1_IRQHandler(void)
 		}
 		
 		// Turn off Data Register Empty Interrupt to stop tx-streaming if this concludes the transfer
-		//Èç¹û´«ÊäÍê³É£¬¹Ø±Õ·¢ËÍÖĞ¶ÏÒÔÍ£Ö¹txÁ÷
+		//å¦‚æœä¼ è¾“å®Œæˆï¼Œå…³é—­å‘é€ä¸­æ–­ä»¥åœæ­¢txæµ
 		if (tail == serial_tx_buffer_head) 
 		{ 
-			USART_ITConfig(USART1, USART_IT_TXE, DISABLE);		//³ıÄÜ·¢ËÍÖĞ¶Ï
+			USART_ITConfig(USART1, USART_IT_TXE, DISABLE);		//é™¤èƒ½å‘é€ä¸­æ–­
 		}
 	}
 }

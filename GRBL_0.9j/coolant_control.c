@@ -1,4 +1,4 @@
-/*
+ï»¿/*
   coolant_control.c - coolant control methods
   Part of Grbl
 
@@ -60,7 +60,7 @@ void coolant_set_state(uint8_t mode)
 
 #if defined(CPU_MAP_STM32F10X)
 
-void coolant_init(void)	  //ÀäÈ´Òı½Å³õÊ¼»¯
+void coolant_init(void)	  //å†·å´å¼•è„šåˆå§‹åŒ–
 {
   HW_GPIO_Init_Out(COOLANT_FLOOD_GPIO_CLK,COOLANT_FLOOD_GPIO,COOLANT_FLOOD_GPIO_PIN);
   #ifdef ENABLE_M7
@@ -70,23 +70,23 @@ void coolant_init(void)	  //ÀäÈ´Òı½Å³õÊ¼»¯
 }
 
 
-void coolant_stop(void)		 //ÀäÈ´¹Ø±Õ
+void coolant_stop(void)		 //å†·å´å…³é—­
 {
-  HW_GPIO_Write(COOLANT_FLOOD_GPIO,COOLANT_FLOOD_GPIO_PIN,0);		//Á÷ÀäÈ´Òı½ÅÖÃ0
+  HW_GPIO_Write(COOLANT_FLOOD_GPIO,COOLANT_FLOOD_GPIO_PIN,0);		//æµå†·å´å¼•è„šç½®0
   #ifdef ENABLE_M7
-    HW_GPIO_Write(COOLANT_MIST_GPIO,COOLANT_MIST_GPIO_PIN,0);		//ÎíÀäÈ´Òı½ÅÖÃ0
+    HW_GPIO_Write(COOLANT_MIST_GPIO,COOLANT_MIST_GPIO_PIN,0);		//é›¾å†·å´å¼•è„šç½®0
   #endif
 }
 
 
-void coolant_set_state(uint8_t mode)  //ÀäÈ´ÉèÖÃ×´Ì¬
+void coolant_set_state(uint8_t mode)  //å†·å´è®¾ç½®çŠ¶æ€
 {
   if (mode == COOLANT_FLOOD_ENABLE) {
-    HW_GPIO_Write(COOLANT_FLOOD_GPIO,COOLANT_FLOOD_GPIO_PIN,1);	   //Á÷ÀäÈ´Òı½ÅÖÃ1
+    HW_GPIO_Write(COOLANT_FLOOD_GPIO,COOLANT_FLOOD_GPIO_PIN,1);	   //æµå†·å´å¼•è„šç½®1
 
   #ifdef ENABLE_M7  
     } else if (mode == COOLANT_MIST_ENABLE) {
-      HW_GPIO_Write(COOLANT_MIST_GPIO,COOLANT_MIST_GPIO_PIN,1);	   //ÎíÀäÈ´Òı½ÅÖÃ1
+      HW_GPIO_Write(COOLANT_MIST_GPIO,COOLANT_MIST_GPIO_PIN,1);	   //é›¾å†·å´å¼•è„šç½®1
   #endif
 
   } else {

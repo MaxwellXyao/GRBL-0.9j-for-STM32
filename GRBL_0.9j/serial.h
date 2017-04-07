@@ -1,4 +1,4 @@
-/*
+﻿/*
   serial.c - Low level functions for sending and recieving bytes via the serial port
   Part of Grbl
 

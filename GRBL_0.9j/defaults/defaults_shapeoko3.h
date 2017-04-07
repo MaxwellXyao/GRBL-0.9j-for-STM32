@@ -1,4 +1,4 @@
-/*
+﻿/*
   defaults_shapeoko3.h - defaults settings configuration file
   Part of Grbl
 

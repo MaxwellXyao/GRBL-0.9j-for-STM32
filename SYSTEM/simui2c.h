@@ -5,30 +5,37 @@
 	Copyright (C) 2016 SOL.lab <maxwellxyao@foxmail.com>
 
 *File name:		simui2c.h
-*Description:	Ä£ÄâI2CĞ­Òé
+*Description:	æ¨¡æ‹ŸI2Cåè®®
 *Author:		MaxwellXyao
-*Version:		V0.0.20160626
-*Date:			2016-6-26 21:26:33
+*Version:		V0.1.20170321
 *History:		
-[2016-6-26]	ÎÄ¼ş´´½¨;
+[2016-6-26]	æ–‡ä»¶åˆ›å»º;
+[2017-3-19]	ä¿®å¤SimuI2C_WriteByte()ä¸­è¯»å–å¤±è´¥çš„bug;
+[2017-3-21]	ä¿®å¤SimuI2C_Init()ä¸­åˆå§‹åŒ–å¤±è´¥çš„bug;
 
 **********************************************************************************/
 
-//###########################¡¾¶¨Òå¡¿###########################
-typedef struct _SimuI2C{				//I2CÓ²¼ş¹ÜÀí¿é
-	void (*PinSetSCL)(unsigned char);		//SCLÒı½ÅÊä³öº¯Êı
-	void (*PinSetSDA)(unsigned char);		//SDAÒı½ÅÊä³öº¯Êı
-	unsigned char (*PinGetSDA)();			//SDAÒı½Å¶ÁÈ¡º¯Êı
-	void (*Delayus)(unsigned int);		//usÑÓÊ±º¯Êı
+//###########################ã€å®šä¹‰ã€‘###########################
+typedef struct _SimuI2C{				//I2Cç¡¬ä»¶ç®¡ç†å—
+//--------------------------------[ç¡¬ä»¶åˆå§‹åŒ–æ¥å£]--------------------------------//
+	void (*PinOutInitSCL)();			//SCLå¼•è„šè¾“å‡ºåˆå§‹åŒ–
+	void (*PinOutInitSDA)();			//SDAå¼•è„šè¾“å‡ºåˆå§‹åŒ–
+	void (*PinInInitSDA)();				//SDAå¼•è„šè¾“å…¥åˆå§‹åŒ–
+//--------------------------------[ç¡¬ä»¶æ§åˆ¶æ¥å£]--------------------------------//	
+	void (*PinSetSCL)(unsigned char);		//SCLå¼•è„šè¾“å‡ºå‡½æ•°
+	void (*PinSetSDA)(unsigned char);		//SDAå¼•è„šè¾“å‡ºå‡½æ•°
+	unsigned char (*PinGetSDA)();			//SDAå¼•è„šè¯»å–å‡½æ•°
+	void (*Delayus)(unsigned int);		//uså»¶æ—¶å‡½æ•°
 }SimuI2C;								
 
-//###########################¡¾API¡¿###########################
-void SimuI2C_Start(SimuI2C *SimuI2C_Struct);			 	//²úÉúIICÆğÊ¼ĞÅºÅ
-void SimuI2C_Stop(SimuI2C *SimuI2C_Struct);			   		//²úÉúIICÍ£Ö¹ĞÅºÅ
-unsigned char SimuI2C_WaitAck(SimuI2C *SimuI2C_Struct);		//µÈ´ıÓ¦´ğĞÅºÅµ½À´
-void SimuI2C_Ack(SimuI2C *SimuI2C_Struct);					//²úÉúACKÓ¦´ğ
-void SimuI2C_NAck(SimuI2C *SimuI2C_Struct);					//²»²úÉúACKÓ¦´ğ
-void SimuI2C_WriteByte(SimuI2C *SimuI2C_Struct,unsigned char data);			//IIC·¢ËÍÒ»¸ö×Ö½Ú
-unsigned char SimuI2C_ReadByte(SimuI2C *SimuI2C_Struct,unsigned char ack);	//IIC¶ÁÒ»¸ö×Ö½Ú
+//###########################ã€APIã€‘###########################
+void SimuI2C_Init(SimuI2C *SimuI2C_Struct);					//åˆå§‹åŒ–
+void SimuI2C_Start(SimuI2C *SimuI2C_Struct);			 	//äº§ç”ŸIICèµ·å§‹ä¿¡å·
+void SimuI2C_Stop(SimuI2C *SimuI2C_Struct);			   		//äº§ç”ŸIICåœæ­¢ä¿¡å·
+unsigned char SimuI2C_WaitAck(SimuI2C *SimuI2C_Struct);		//ç­‰å¾…åº”ç­”ä¿¡å·åˆ°æ¥
+void SimuI2C_Ack(SimuI2C *SimuI2C_Struct);					//äº§ç”ŸACKåº”ç­”
+void SimuI2C_NAck(SimuI2C *SimuI2C_Struct);					//ä¸äº§ç”ŸACKåº”ç­”
+void SimuI2C_WriteByte(SimuI2C *SimuI2C_Struct,unsigned char data);			//IICå‘é€ä¸€ä¸ªå­—èŠ‚
+unsigned char SimuI2C_ReadByte(SimuI2C *SimuI2C_Struct,unsigned char ack);	//IICè¯»ä¸€ä¸ªå­—èŠ‚
 
 #endif

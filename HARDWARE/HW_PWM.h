@@ -1,30 +1,30 @@
-#ifndef __HW_PWM_H
+ï»¿#ifndef __HW_PWM_H
 #define __HW_PWM_H
 
 
 
 
 /*
-///////////////////////´úÂë¼Ä´æ£º´ıµ÷Í¨µ×²ãºóÒÆÖ²ÈëGRBL///////////////////////
+///////////////////////ä»£ç å¯„å­˜ï¼šå¾…è°ƒé€šåº•å±‚åç§»æ¤å…¥GRBL///////////////////////
 
-	HW_PWM_Init(SPINDLE_PWM_GPIO_CLK,  	//³õÊ¼»¯
+	HW_PWM_Init(SPINDLE_PWM_GPIO_CLK,  	//åˆå§‹åŒ–
 				SPINDLE_PWM_GPIO,
 				SPINDLE_PWM_GPIO_PIN,
 				PWM_CLK,
 				PWM_TIMER,
 				PWM_MAX_VALUE);
 
-	HW_PWM_Enable(PWM_TIMER);			//Ê¹ÄÜ
+	HW_PWM_Enable(PWM_TIMER);			//ä½¿èƒ½
 	HW_PWM_Disable(PWM_TIMER);
-	HW_PWM_Write(PWM_TIMER,val);		//ÉèÖÃÊıÖµ
+	HW_PWM_Write(PWM_TIMER,val);		//è®¾ç½®æ•°å€¼
 
 
 */
-//##############################¡¾API¡¿##############################
-void HW_PWM_Init(u32 gpio_clk,GPIO_TypeDef * gpio,u16 gpio_pin,u32 pwm_clk,TIM_TypeDef * pwm_timer,float pwm_max_value); //³õÊ¼»¯
-void HW_PWM_Write(TIM_TypeDef * pwm_timer,u32 val);	 	//ÉèÖÃÊıÖµ	
-void HW_PWM_Disable(TIM_TypeDef * pwm_timer);			//³ıÄÜ
-void HW_PWM_Enable(TIM_TypeDef * pwm_timer); 			//Ê¹ÄÜ
+//##############################ã€APIã€‘##############################
+void HW_PWM_Init(u32 gpio_clk,GPIO_TypeDef * gpio,u16 gpio_pin,u32 pwm_clk,TIM_TypeDef * pwm_timer,float pwm_max_value); //åˆå§‹åŒ–
+void HW_PWM_Write(TIM_TypeDef * pwm_timer,u32 val);	 	//è®¾ç½®æ•°å€¼	
+void HW_PWM_Disable(TIM_TypeDef * pwm_timer);			//é™¤èƒ½
+void HW_PWM_Enable(TIM_TypeDef * pwm_timer); 			//ä½¿èƒ½
 
 
 

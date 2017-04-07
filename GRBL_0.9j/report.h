@@ -1,4 +1,4 @@
-/*
+﻿/*
   report.h - reporting and messaging methods
   Part of Grbl
 

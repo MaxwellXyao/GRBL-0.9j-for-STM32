@@ -1,4 +1,4 @@
-/*
+﻿/*
   probe.h - code pertaining to probing methods
   Part of Grbl
 

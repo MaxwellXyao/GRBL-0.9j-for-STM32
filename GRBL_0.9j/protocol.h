@@ -1,4 +1,4 @@
-/*
+﻿/*
   protocol.h - controls Grbl execution protocol and procedures
   Part of Grbl
 

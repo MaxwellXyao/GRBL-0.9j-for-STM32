@@ -62,8 +62,8 @@ static uint8_t plan_prev_block_index(uint8_t block_index)
 
 /*                            PLANNER SPEED DEFINITION                                              
                                      +--------+   <- current->nominal_speed
-                                    /          \                                
-         current->entry_speed ->   +            \                               
+                                    /          `                                
+         current->entry_speed ->   +            `                               
                                    |             + <- next->entry_speed (aka exit speed)
                                    +-------------+                              
                                        time -->                      

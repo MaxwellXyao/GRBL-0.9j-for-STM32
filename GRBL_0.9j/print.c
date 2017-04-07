@@ -1,4 +1,4 @@
-/*
+ï»¿/*
   print.c - Functions for formatting output strings
   Part of Grbl
 
@@ -39,7 +39,7 @@ void printPgmString(const char *s)
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
-	printString(s);		 //STM32µÄ×Ö·û´®ÊÇ´¢´æÔÚflashÖÐµÄ
+	printString(s);		 //STM32çš„å­—ç¬¦ä¸²æ˜¯å‚¨å­˜åœ¨flashä¸­çš„
 #endif		//end of CPU_MAP_STM32F10X 
 }
 

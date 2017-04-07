@@ -1,52 +1,52 @@
-#ifndef __HW_TIM_H
+ï»¿#ifndef __HW_TIM_H
 #define __HW_TIM_H
 
 
 
 
 /*
-///////////////////////´úÂë¼Ä´æ£º´ıµ÷Í¨µ×²ãºóÒÆÖ²ÈëGRBL///////////////////////
+///////////////////////ä»£ç å¯„å­˜ï¼šå¾…è°ƒé€šåº•å±‚åç§»æ¤å…¥GRBL///////////////////////
 
-	HW_TIM_Init();				//¶¨Ê±Æ÷³õÊ¼»¯£¨¶¨Ê±Æ÷NVIC³õÊ¼»¯ºó»áÁ¢¿Ì½øÈëÒ»´ÎÖĞ¶Ï£©
-	HW_TIM_DriverInterrupt_ValueConfig(8000,9000);		//ÉèÖÃ¶¨Ê±Æ÷ÖØ×°Öµ
-	HW_TIM_DriverInterrupt_Enable(); 					//¿ªÆô¶¨Ê±Æ÷
-	HW_TIM_PortResetInterrupt_ValueConfig(4500,9000); 	//ÉèÖÃ¶¨Ê±Æ÷ÖØ×°Öµ
-	HW_TIM_PortResetInterrupt_Enable();  				//¿ªÆô¶¨Ê±Æ÷
+	HW_TIM_Init();				//å®šæ—¶å™¨åˆå§‹åŒ–ï¼ˆå®šæ—¶å™¨NVICåˆå§‹åŒ–åä¼šç«‹åˆ»è¿›å…¥ä¸€æ¬¡ä¸­æ–­ï¼‰
+	HW_TIM_DriverInterrupt_ValueConfig(8000,9000);		//è®¾ç½®å®šæ—¶å™¨é‡è£…å€¼
+	HW_TIM_DriverInterrupt_Enable(); 					//å¼€å¯å®šæ—¶å™¨
+	HW_TIM_PortResetInterrupt_ValueConfig(4500,9000); 	//è®¾ç½®å®šæ—¶å™¨é‡è£…å€¼
+	HW_TIM_PortResetInterrupt_Enable();  				//å¼€å¯å®šæ—¶å™¨
 
-	HW_Debounce_Init();		//È¥¶¶¶¨Ê±Æ÷
-	HW_Debounce_Enable();	//Ê¹ÄÜÈ¥¶¶¶¨Ê±Æ÷
-	HW_Debounce_Disable();	//³ıÄÜÈ¥¶¶¶¨Ê±Æ÷
+	HW_Debounce_Init();		//å»æŠ–å®šæ—¶å™¨
+	HW_Debounce_Enable();	//ä½¿èƒ½å»æŠ–å®šæ—¶å™¨
+	HW_Debounce_Disable();	//é™¤èƒ½å»æŠ–å®šæ—¶å™¨
 
 
-//¶¨Ê±Æ÷1ÖĞ¶Ï·şÎñ³ÌĞò
+//å®šæ—¶å™¨1ä¸­æ–­æœåŠ¡ç¨‹åº
 void TIM1_UP_IRQHandler(void)
 {
 	if(TIM_GetITStatus(TIM1,TIM_IT_Update)!=RESET)
 	{
 		TIM_ClearITPendingBit(TIM1,TIM_FLAG_Update);
-		//.....´úÂë
+		//.....ä»£ç 
 
 	}
 }
 
-//¶¨Ê±Æ÷3ÖĞ¶Ï·şÎñ³ÌĞò
-void TIM3_IRQHandler(void)   //TIM3ÖĞ¶Ï
+//å®šæ—¶å™¨3ä¸­æ–­æœåŠ¡ç¨‹åº
+void TIM3_IRQHandler(void)   //TIM3ä¸­æ–­
 {
-	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)  //¼ì²éTIM3¸üĞÂÖĞ¶Ï·¢ÉúÓë·ñ
+	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)  //æ£€æŸ¥TIM3æ›´æ–°ä¸­æ–­å‘ç”Ÿä¸å¦
 	{
-		TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //Çå³ıTIM3¸üĞÂÖĞ¶Ï±êÖ¾ 
-		//.....´úÂë
+		TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //æ¸…é™¤TIM3æ›´æ–°ä¸­æ–­æ ‡å¿— 
+		//.....ä»£ç 
 
 	}
 }
 
-//¶¨Ê±Æ÷4ÖĞ¶Ï·şÎñ³ÌĞò
-void TIM4_IRQHandler(void)   //TIM4ÖĞ¶Ï
+//å®šæ—¶å™¨4ä¸­æ–­æœåŠ¡ç¨‹åº
+void TIM4_IRQHandler(void)   //TIM4ä¸­æ–­
 {
-	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)  //¼ì²éTIM4¸üĞÂÖĞ¶Ï·¢ÉúÓë·ñ
+	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)  //æ£€æŸ¥TIM4æ›´æ–°ä¸­æ–­å‘ç”Ÿä¸å¦
 	{
-		TIM_ClearITPendingBit(TIM4, TIM_IT_Update  );  //Çå³ıTIM4¸üĞÂÖĞ¶Ï±êÖ¾ 
-		//.....´úÂë
+		TIM_ClearITPendingBit(TIM4, TIM_IT_Update  );  //æ¸…é™¤TIM4æ›´æ–°ä¸­æ–­æ ‡å¿— 
+		//.....ä»£ç 
 
 	}
 }
@@ -55,20 +55,20 @@ void TIM4_IRQHandler(void)   //TIM4ÖĞ¶Ï
 
 
 */
-//##############################¡¾API¡¿##############################
-void HW_TIM_Init(void);				//¶¨Ê±Æ÷³õÊ¼»¯£¬ÒªÒÆÖÁµ½stepper.cÖĞµÄst_init()
+//##############################ã€APIã€‘##############################
+void HW_TIM_Init(void);				//å®šæ—¶å™¨åˆå§‹åŒ–ï¼Œè¦ç§»è‡³åˆ°stepper.cä¸­çš„st_init()
 //Driver Interrupt
-void HW_TIM_DriverInterrupt_Enable(void); 		//¿ªÆô¶¨Ê±Æ÷
-void HW_TIM_DriverInterrupt_Disable(void);		//¹Ø±Õ¶¨Ê±Æ÷
-void HW_TIM_DriverInterrupt_ValueConfig(u32 Prescaler,u32 Autoreload);		//ÉèÖÃ¶¨Ê±Æ÷ÖØ×°Öµ
+void HW_TIM_DriverInterrupt_Enable(void); 		//å¼€å¯å®šæ—¶å™¨
+void HW_TIM_DriverInterrupt_Disable(void);		//å…³é—­å®šæ—¶å™¨
+void HW_TIM_DriverInterrupt_ValueConfig(u32 Prescaler,u32 Autoreload);		//è®¾ç½®å®šæ—¶å™¨é‡è£…å€¼
 //Port Reset Interrupt
-void HW_TIM_PortResetInterrupt_Enable(void);  	//¿ªÆô¶¨Ê±Æ÷
-void HW_TIM_PortResetInterrupt_Disable(void);	//¹Ø±Õ¶¨Ê±Æ÷
-void HW_TIM_PortResetInterrupt_ValueConfig(u32 Prescaler,u32 Autoreload); 	//ÉèÖÃ¶¨Ê±Æ÷ÖØ×°Öµ
+void HW_TIM_PortResetInterrupt_Enable(void);  	//å¼€å¯å®šæ—¶å™¨
+void HW_TIM_PortResetInterrupt_Disable(void);	//å…³é—­å®šæ—¶å™¨
+void HW_TIM_PortResetInterrupt_ValueConfig(u32 Prescaler,u32 Autoreload); 	//è®¾ç½®å®šæ—¶å™¨é‡è£…å€¼
 //Debounce
-void HW_Debounce_Init(void);		//È¥¶¶¶¨Ê±Æ÷
-void HW_Debounce_Enable(void);		//Ê¹ÄÜÈ¥¶¶¶¨Ê±Æ÷
-void HW_Debounce_Disable(void);		//³ıÄÜÈ¥¶¶¶¨Ê±Æ÷
+void HW_Debounce_Init(void);		//å»æŠ–å®šæ—¶å™¨
+void HW_Debounce_Enable(void);		//ä½¿èƒ½å»æŠ–å®šæ—¶å™¨
+void HW_Debounce_Disable(void);		//é™¤èƒ½å»æŠ–å®šæ—¶å™¨
 
 
 

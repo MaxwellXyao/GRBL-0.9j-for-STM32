@@ -1,4 +1,4 @@
-/*
+﻿/*
   defaults_generic.h - defaults settings configuration file
   Part of Grbl
 

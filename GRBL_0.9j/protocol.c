@@ -1,4 +1,4 @@
-/*
+﻿/*
   protocol.c - controls Grbl execution protocol and procedures
   Part of Grbl
   

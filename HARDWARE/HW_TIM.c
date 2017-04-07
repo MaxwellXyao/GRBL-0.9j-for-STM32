@@ -5,56 +5,62 @@ void HW_TIM_Init(void)
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
 
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3|RCC_APB1Periph_TIM4, ENABLE); //Ê±ÖÓÊ¹ÄÜ
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3|RCC_APB1Periph_TIM4, ENABLE); //æ—¶é’Ÿä½¿èƒ½
 	
-	//¶¨Ê±Æ÷TIM3³õÊ¼»¯:Driver Interrupt
-	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; //ÉèÖÃÊ±ÖÓ·Ö¸î:TDTS = Tck_tim
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIMÏòÉÏ¼ÆÊıÄ£Ê½
-	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure); //¸ù¾İÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯TIMxµÄÊ±¼ä»ùÊıµ¥Î»
-	TIM_ITConfig(TIM3,TIM_IT_Update,ENABLE); //Ê¹ÄÜÖ¸¶¨µÄTIM3ÖĞ¶Ï,ÔÊĞí¸üĞÂÖĞ¶Ï
-	//ÖĞ¶ÏÓÅÏÈ¼¶NVICÉèÖÃ
-	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;  //TIM3ÖĞ¶Ï
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;  //ÏÈÕ¼ÓÅÏÈ¼¶1¼¶
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;  //´ÓÓÅÏÈ¼¶2¼¶
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQÍ¨µÀ±»Ê¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);  //³õÊ¼»¯NVIC¼Ä´æÆ÷
+	//å®šæ—¶å™¨TIM3åˆå§‹åŒ–:Driver Interrupt
+	TIM_TimeBaseStructure.TIM_Prescaler=2;					 					
+	TIM_TimeBaseStructure.TIM_Period=1;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; //è®¾ç½®æ—¶é’Ÿåˆ†å‰²:TDTS = Tck_tim
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIMå‘ä¸Šè®¡æ•°æ¨¡å¼
+	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure); //æ ¹æ®æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–TIMxçš„æ—¶é—´åŸºæ•°å•ä½
+	TIM_ITConfig(TIM3,TIM_IT_Update,ENABLE); //ä½¿èƒ½æŒ‡å®šçš„TIM3ä¸­æ–­,å…è®¸æ›´æ–°ä¸­æ–­
+	TIM_ClearITPendingBit(TIM3, TIM_IT_Update);  //æ¸…é™¤TIM3æ›´æ–°ä¸­æ–­æ ‡å¿—
+	//ä¸­æ–­ä¼˜å…ˆçº§NVICè®¾ç½®
+	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;  //TIM3ä¸­æ–­
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;  //å…ˆå ä¼˜å…ˆçº§1çº§
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;  //ä»ä¼˜å…ˆçº§2çº§
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQé€šé“è¢«ä½¿èƒ½
+	NVIC_Init(&NVIC_InitStructure);  //åˆå§‹åŒ–NVICå¯„å­˜å™¨
 
 
-	//¶¨Ê±Æ÷TIM4³õÊ¼»¯:Port Reset Interrupt
-	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; //ÉèÖÃÊ±ÖÓ·Ö¸î:TDTS = Tck_tim
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIMÏòÉÏ¼ÆÊıÄ£Ê½
-	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure); //¸ù¾İÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯TIMxµÄÊ±¼ä»ùÊıµ¥Î»
-	TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE); //Ê¹ÄÜÖ¸¶¨µÄTIM3ÖĞ¶Ï,ÔÊĞí¸üĞÂÖĞ¶Ï
-	//ÖĞ¶ÏÓÅÏÈ¼¶NVICÉèÖÃ
-	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;  //TIM4ÖĞ¶Ï
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  //ÏÈÕ¼ÓÅÏÈ¼¶0¼¶
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;  //´ÓÓÅÏÈ¼¶1¼¶
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQÍ¨µÀ±»Ê¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);  //³õÊ¼»¯NVIC¼Ä´æÆ÷
+	//å®šæ—¶å™¨TIM4åˆå§‹åŒ–:Port Reset Interrupt
+	TIM_TimeBaseStructure.TIM_Prescaler=2;					 					
+	TIM_TimeBaseStructure.TIM_Period=1;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; //è®¾ç½®æ—¶é’Ÿåˆ†å‰²:TDTS = Tck_tim
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIMå‘ä¸Šè®¡æ•°æ¨¡å¼
+	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure); //æ ¹æ®æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–TIMxçš„æ—¶é—´åŸºæ•°å•ä½
+	TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE); //ä½¿èƒ½æŒ‡å®šçš„TIM3ä¸­æ–­,å…è®¸æ›´æ–°ä¸­æ–­
+	TIM_ClearITPendingBit(TIM4, TIM_IT_Update);  //æ¸…é™¤TIM4æ›´æ–°ä¸­æ–­æ ‡å¿— 
+	//ä¸­æ–­ä¼˜å…ˆçº§NVICè®¾ç½®
+	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;  //TIM4ä¸­æ–­
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  //å…ˆå ä¼˜å…ˆçº§0çº§
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;  //ä»ä¼˜å…ˆçº§1çº§
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQé€šé“è¢«ä½¿èƒ½
+	NVIC_Init(&NVIC_InitStructure);  //åˆå§‹åŒ–NVICå¯„å­˜å™¨
 }
 
 void HW_Debounce_Init(void)
 {
-	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;	 //¶¨Òå³õÊ¼»¯±äÁ¿
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;	 //å®šä¹‰åˆå§‹åŒ–å˜é‡
 	NVIC_InitTypeDef NVIC_InitStructure;  
 
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1,ENABLE);
 
-	TIM_TimeBaseStructure.TIM_Prescaler =123;    	     //Ô¼¶¨Ê±30msÓÃÓÚÈ¥¶¶ 
+	TIM_TimeBaseStructure.TIM_Prescaler =123;    	     //çº¦å®šæ—¶30msç”¨äºå»æŠ– 
 	TIM_TimeBaseStructure.TIM_Period = 123; 				
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	 
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  	
     TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
-	TIM_ITConfig(TIM1, TIM_IT_Update, ENABLE); 	//TIM1Òç³öÖĞ¶ÏÔÊĞí
+	TIM_ITConfig(TIM1, TIM_IT_Update, ENABLE); 	//TIM1æº¢å‡ºä¸­æ–­å…è®¸
 
-	NVIC_InitStructure.NVIC_IRQChannel=TIM1_UP_IRQn;		//½øÈëTIM1·şÎñº¯Êı
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=1;		//ÇÀÕ¼ÓÅÏÈ¼¶0
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority=1;			//×ÓÓÅÏÈ¼¶0
-	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;		  		//NVICÊ¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);						  		//ÉèÖÃÖĞ¶Ï·şÎñº¯ÊıºÍÓÅÏÈ¼¶
+	NVIC_InitStructure.NVIC_IRQChannel=TIM1_UP_IRQn;		//è¿›å…¥TIM1æœåŠ¡å‡½æ•°
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority=1;		//æŠ¢å ä¼˜å…ˆçº§0
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority=1;			//å­ä¼˜å…ˆçº§0
+	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;		  		//NVICä½¿èƒ½
+	NVIC_Init(&NVIC_InitStructure);						  		//è®¾ç½®ä¸­æ–­æœåŠ¡å‡½æ•°å’Œä¼˜å…ˆçº§
 }
 
-//##############################¡¾Driver Interrupt¡¿##############################
+//##############################ã€Driver Interruptã€‘##############################
 void HW_TIM_DriverInterrupt_Enable(void)
 {
 	TIM_Cmd(TIM3,ENABLE);	
@@ -72,7 +78,7 @@ void HW_TIM_DriverInterrupt_ValueConfig(u32 Prescaler,u32 Autoreload)
 }
 
 
-//##############################¡¾Port Reset Interrupt¡¿##############################
+//##############################ã€Port Reset Interruptã€‘##############################
 void HW_TIM_PortResetInterrupt_Enable(void)
 {
 	TIM_Cmd(TIM4,ENABLE);
@@ -89,7 +95,7 @@ void HW_TIM_PortResetInterrupt_ValueConfig(u32 Prescaler,u32 Autoreload)
 	TIM_SetAutoreload(TIM4,(uint16_t)Autoreload);
 }
 
-//##############################¡¾Debounce¡¿##############################
+//##############################ã€Debounceã€‘##############################
 
 void HW_Debounce_Enable(void)
 {

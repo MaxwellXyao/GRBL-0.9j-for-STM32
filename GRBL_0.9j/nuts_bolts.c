@@ -1,4 +1,4 @@
-/*
+﻿/*
   nuts_bolts.c - Shared functions
   Part of Grbl
 

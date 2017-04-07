@@ -1,4 +1,4 @@
-#include "Hardware.h"
+ï»¿#include "Hardware.h"
 
 
 void HW_PWM_Init(u32 gpio_clk,GPIO_TypeDef * gpio,u16 gpio_pin,u32 pwm_clk,TIM_TypeDef * pwm_timer,float pwm_max_value)		  
@@ -7,28 +7,28 @@ void HW_PWM_Init(u32 gpio_clk,GPIO_TypeDef * gpio,u16 gpio_pin,u32 pwm_clk,TIM_T
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	TIM_OCInitTypeDef  TIM_OCInitStructure;
 
-	RCC_APB1PeriphClockCmd(pwm_clk, ENABLE);					//Ê¹ÄÜ¶¨Ê±Æ÷Ê±ÖÓ
- 	RCC_APB2PeriphClockCmd(gpio_clk|RCC_APB2Periph_AFIO, ENABLE);  //Ê¹ÄÜGPIOÍâÉèºÍAFIO¸´ÓÃ¹¦ÄÜÄ£¿éÊ±ÖÓ
+	RCC_APB1PeriphClockCmd(pwm_clk, ENABLE);					//ä½¿èƒ½å®šæ—¶å™¨æ—¶é’Ÿ
+ 	RCC_APB2PeriphClockCmd(gpio_clk|RCC_APB2Periph_AFIO, ENABLE);  //ä½¿èƒ½GPIOå¤–è®¾å’ŒAFIOå¤ç”¨åŠŸèƒ½æ¨¡å—æ—¶é’Ÿ
  
 	GPIO_InitStructure.GPIO_Pin = gpio_pin; 
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;  //¸´ÓÃÍÆÍìÊä³ö
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;  //å¤ç”¨æ¨æŒ½è¾“å‡º
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(gpio, &GPIO_InitStructure);//³õÊ¼»¯GPIO
+	GPIO_Init(gpio, &GPIO_InitStructure);//åˆå§‹åŒ–GPIO
  
-   //³õÊ¼»¯TIM3
+   //åˆå§‹åŒ–TIM3
 	TIM_TimeBaseStructure.TIM_Period = (u32)pwm_max_value; 	
-	TIM_TimeBaseStructure.TIM_Prescaler =8;			//ÔÄ¶ÁÔ´ÎÄ¼şspindle_control.c¿ÉÖª·ÖÆµÊıÎª8 
-	TIM_TimeBaseStructure.TIM_ClockDivision = 0; //ÉèÖÃÊ±ÖÓ·Ö¸î:TDTS = Tck_tim
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIMÏòÉÏ¼ÆÊıÄ£Ê½
-	TIM_TimeBaseInit(pwm_timer, &TIM_TimeBaseStructure); //¸ù¾İTIM_TimeBaseInitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯TIMxµÄÊ±¼ä»ùÊıµ¥Î»
+	TIM_TimeBaseStructure.TIM_Prescaler =8;			//é˜…è¯»æºæ–‡ä»¶spindle_control.cå¯çŸ¥åˆ†é¢‘æ•°ä¸º8 
+	TIM_TimeBaseStructure.TIM_ClockDivision = 0; //è®¾ç½®æ—¶é’Ÿåˆ†å‰²:TDTS = Tck_tim
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIMå‘ä¸Šè®¡æ•°æ¨¡å¼
+	TIM_TimeBaseInit(pwm_timer, &TIM_TimeBaseStructure); //æ ¹æ®TIM_TimeBaseInitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–TIMxçš„æ—¶é—´åŸºæ•°å•ä½
 	
-	//³õÊ¼»¯Channel 1 PWMÄ£Ê½	 
-	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1; //Ñ¡Ôñ¶¨Ê±Æ÷Ä£Ê½:TIMÂö³å¿í¶Èµ÷ÖÆÄ£Ê½2
- 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; //±È½ÏÊä³öÊ¹ÄÜ
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High; //Êä³ö¼«ĞÔ:TIMÊä³ö±È½Ï¼«ĞÔ¸ß
-	TIM_OC1Init(pwm_timer, &TIM_OCInitStructure);  //¸ù¾İTÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯ÍâÉèTIMx OC1
+	//åˆå§‹åŒ–Channel 1 PWMæ¨¡å¼	 
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1; //é€‰æ‹©å®šæ—¶å™¨æ¨¡å¼:TIMè„‰å†²å®½åº¦è°ƒåˆ¶æ¨¡å¼2
+ 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; //æ¯”è¾ƒè¾“å‡ºä½¿èƒ½
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High; //è¾“å‡ºææ€§:TIMè¾“å‡ºæ¯”è¾ƒææ€§é«˜
+	TIM_OC1Init(pwm_timer, &TIM_OCInitStructure);  //æ ¹æ®TæŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–å¤–è®¾TIMx OC1
 
-	TIM_OC1PreloadConfig(pwm_timer, TIM_OCPreload_Enable);  //Ê¹ÄÜTIM3ÔÚCCR2ÉÏµÄÔ¤×°ÔØ¼Ä´æÆ÷
+	TIM_OC1PreloadConfig(pwm_timer, TIM_OCPreload_Enable);  //ä½¿èƒ½TIM3åœ¨CCR2ä¸Šçš„é¢„è£…è½½å¯„å­˜å™¨
 }
 
 void HW_PWM_Write(TIM_TypeDef * pwm_timer,u32 val)

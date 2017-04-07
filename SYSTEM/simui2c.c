@@ -2,64 +2,82 @@
 	Copyright (C) 2016 SOL.lab <maxwellxyao@foxmail.com>
 
 *File name:		simui2c.c
-*Description:	Ä£ÄâI2CĞ­Òé
+*Description:	æ¨¡æ‹ŸI2Cåè®®
 *Author:		MaxwellXyao
-*Versionc:		V0.0.20160626
-*Date:			2016-6-26 21:26:33
+*Versionc:		V0.1.20170321
 *History:		
-[2016-6-26]	ÎÄ¼ş´´½¨;
+[2016-6-26]	æ–‡ä»¶åˆ›å»º;
+[2017-3-19]	ä¿®å¤SimuI2C_WriteByte()ä¸­è¯»å–å¤±è´¥çš„bug;
+[2017-3-21]	ä¿®å¤SimuI2C_Init()ä¸­åˆå§‹åŒ–å¤±è´¥çš„bug;
 
 **********************************************************************************/
-#include "simui2c.h"	//Ä£ÄâI2CĞ­Òé
+#include "simui2c.h"	//æ¨¡æ‹ŸI2Cåè®®
 
-//###########################¡¾º¯Êı¡¿###########################
+//###########################ã€å‡½æ•°ã€‘###########################
 
+/*****************************************************************
+*Function:	SimuI2C_Init
+*Description:	åˆå§‹åŒ–æ¨¡æ‹ŸIICåè®®
+*Input:		æ¨¡æ‹ŸI2Cç»“æ„ä½“
+*Output:	æ— 
+*Other:		æ— 
+*****************************************************************/
+void SimuI2C_Init(SimuI2C *SimuI2C_Struct)
+{
+	SimuI2C_Struct->PinOutInitSDA();
+	SimuI2C_Struct->PinOutInitSCL();
+	SimuI2C_Struct->PinSetSCL(1);
+	SimuI2C_Struct->PinSetSDA(1);
+}
 
 /*****************************************************************
 *Function:	SimuI2C_Start
-*Description:	²úÉúIICÆğÊ¼ĞÅºÅ
-*Input:		Ä£ÄâI2C½á¹¹Ìå
-*Output:	ÎŞ
-*Other:		ÎŞ
+*Description:	äº§ç”ŸIICèµ·å§‹ä¿¡å·
+*Input:		æ¨¡æ‹ŸI2Cç»“æ„ä½“
+*Output:	æ— 
+*Other:		æ— 
 *****************************************************************/
-void SimuI2C_Start(SimuI2C *SimuI2C_Struct)			 //²úÉúIICÆğÊ¼ĞÅºÅ
+void SimuI2C_Start(SimuI2C *SimuI2C_Struct)			 //äº§ç”ŸIICèµ·å§‹ä¿¡å·
 {
+	SimuI2C_Struct->PinOutInitSDA();
 	SimuI2C_Struct->PinSetSDA(1);	  	  
 	SimuI2C_Struct->PinSetSCL(1);
 	SimuI2C_Struct->Delayus(4);
  	SimuI2C_Struct->PinSetSDA(0);//START:when CLK is high,DATA change form high to low 
 	SimuI2C_Struct->Delayus(4);
-	SimuI2C_Struct->PinSetSCL(0);//Ç¯×¡I2C×ÜÏß£¬×¼±¸·¢ËÍ»ò½ÓÊÕÊı¾İ 
+	SimuI2C_Struct->PinSetSCL(0);//é’³ä½I2Cæ€»çº¿ï¼Œå‡†å¤‡å‘é€æˆ–æ¥æ”¶æ•°æ® 
 }	  
 
 /*****************************************************************
 *Function:	SimuI2C_Stop
-*Description:	²úÉúIICÍ£Ö¹ĞÅºÅ
-*Input:		Ä£ÄâI2C½á¹¹Ìå
-*Output:	ÎŞ
-*Other:		ÎŞ
+*Description:	äº§ç”ŸIICåœæ­¢ä¿¡å·
+*Input:		æ¨¡æ‹ŸI2Cç»“æ„ä½“
+*Output:	æ— 
+*Other:		æ— 
 *****************************************************************/
-void SimuI2C_Stop(SimuI2C *SimuI2C_Struct)			   //²úÉúIICÍ£Ö¹ĞÅºÅ
+void SimuI2C_Stop(SimuI2C *SimuI2C_Struct)			   //äº§ç”ŸIICåœæ­¢ä¿¡å·
 {
+	SimuI2C_Struct->PinOutInitSDA();
 	SimuI2C_Struct->PinSetSCL(0);
 	SimuI2C_Struct->PinSetSDA(0);//STOP:when CLK is high DATA change form low to high
  	SimuI2C_Struct->Delayus(4);
 	SimuI2C_Struct->PinSetSCL(1); 
-	SimuI2C_Struct->PinSetSDA(1);//·¢ËÍI2C×ÜÏß½áÊøĞÅºÅ
+	SimuI2C_Struct->PinSetSDA(1);//å‘é€I2Cæ€»çº¿ç»“æŸä¿¡å·
 	SimuI2C_Struct->Delayus(4);							   	
 }
 
 /*****************************************************************
 *Function:	SimuI2C_WaitAck
-*Description:	µÈ´ıÓ¦´ğĞÅºÅµ½À´
-*Input:		Ä£ÄâI2C½á¹¹Ìå
-*Output:	1£¬½ÓÊÕÓ¦´ğÊ§°Ü
-        	0£¬½ÓÊÕÓ¦´ğ³É¹¦
-*Other:		ÎŞ
+*Description:	ç­‰å¾…åº”ç­”ä¿¡å·åˆ°æ¥
+*Input:		æ¨¡æ‹ŸI2Cç»“æ„ä½“
+*Output:	1ï¼Œæ¥æ”¶åº”ç­”å¤±è´¥
+        	0ï¼Œæ¥æ”¶åº”ç­”æˆåŠŸ
+*Other:		æ— 
 *****************************************************************/
 unsigned char SimuI2C_WaitAck(SimuI2C *SimuI2C_Struct)
 {
-	unsigned char ucErrTime=0;  
+	unsigned char ucErrTime=0; 
+	SimuI2C_Struct->PinInInitSDA();	
 	SimuI2C_Struct->PinSetSDA(1);SimuI2C_Struct->Delayus(1);	   
 	SimuI2C_Struct->PinSetSCL(1);SimuI2C_Struct->Delayus(1);	 
 	while(SimuI2C_Struct->PinGetSDA())
@@ -71,20 +89,21 @@ unsigned char SimuI2C_WaitAck(SimuI2C *SimuI2C_Struct)
 			return 1;
 		}
 	}
-	SimuI2C_Struct->PinSetSCL(0);//Ê±ÖÓÊä³ö0 	   
+	SimuI2C_Struct->PinSetSCL(0);//æ—¶é’Ÿè¾“å‡º0 	   
 	return 0;  
 } 
 
 /*****************************************************************
 *Function:	SimuI2C_Ack
-*Description:	²úÉúACKÓ¦´ğ
-*Input:		Ä£ÄâI2C½á¹¹Ìå
-*Output:	ÎŞ
-*Other:		ÎŞ
+*Description:	äº§ç”ŸACKåº”ç­”
+*Input:		æ¨¡æ‹ŸI2Cç»“æ„ä½“
+*Output:	æ— 
+*Other:		æ— 
 *****************************************************************/
 void SimuI2C_Ack(SimuI2C *SimuI2C_Struct)
 {
 	SimuI2C_Struct->PinSetSCL(0);
+	SimuI2C_Struct->PinOutInitSDA();
 	SimuI2C_Struct->PinSetSDA(0);
 	SimuI2C_Struct->Delayus(2);
 	SimuI2C_Struct->PinSetSCL(1);
@@ -94,14 +113,15 @@ void SimuI2C_Ack(SimuI2C *SimuI2C_Struct)
 
 /*****************************************************************
 *Function:	SimuI2C_NAck
-*Description:	²»²úÉúACKÓ¦´ğ
-*Input:		Ä£ÄâI2C½á¹¹Ìå
-*Output:	ÎŞ
-*Other:		ÎŞ
+*Description:	ä¸äº§ç”ŸACKåº”ç­”
+*Input:		æ¨¡æ‹ŸI2Cç»“æ„ä½“
+*Output:	æ— 
+*Other:		æ— 
 *****************************************************************/	    
 void SimuI2C_NAck(SimuI2C *SimuI2C_Struct)
 {
 	SimuI2C_Struct->PinSetSCL(0);
+	SimuI2C_Struct->PinOutInitSDA();
 	SimuI2C_Struct->PinSetSDA(1);
 	SimuI2C_Struct->Delayus(2);
 	SimuI2C_Struct->PinSetSCL(1);
@@ -112,21 +132,22 @@ void SimuI2C_NAck(SimuI2C *SimuI2C_Struct)
 
 /*****************************************************************
 *Function:	SimuI2C_WriteByte
-*Description:	IIC·¢ËÍÒ»¸ö×Ö½Ú
-*Input:			Ä£ÄâI2C½á¹¹Ìå£¬·¢ËÍµÄ×Ö½Ú
-*Output:		1£¬ÓĞÓ¦´ğ
-				0£¬ÎŞÓ¦´ğ	
-*Other:		ÎŞ
+*Description:	IICå‘é€ä¸€ä¸ªå­—èŠ‚
+*Input:			æ¨¡æ‹ŸI2Cç»“æ„ä½“ï¼Œå‘é€çš„å­—èŠ‚
+*Output:		1ï¼Œæœ‰åº”ç­”
+				0ï¼Œæ— åº”ç­”	
+*Other:		æ— 
 *****************************************************************/					 				     	  
 void SimuI2C_WriteByte(SimuI2C *SimuI2C_Struct,unsigned char data)
 {                        
-    unsigned char t;   	    
-    SimuI2C_Struct->PinSetSCL(0);//À­µÍÊ±ÖÓ¿ªÊ¼Êı¾İ´«Êä
+    unsigned char t;   	
+	SimuI2C_Struct->PinOutInitSDA();    
+    SimuI2C_Struct->PinSetSCL(0);//æ‹‰ä½æ—¶é’Ÿå¼€å§‹æ•°æ®ä¼ è¾“
     for(t=0;t<8;t++)
     {              
         SimuI2C_Struct->PinSetSDA((data&0x80)>>7);
         data<<=1; 	  
-		SimuI2C_Struct->Delayus(2);   //¶ÔTEA5767ÕâÈı¸öÑÓÊ±¶¼ÊÇ±ØĞëµÄ
+		SimuI2C_Struct->Delayus(2);   //å¯¹TEA5767è¿™ä¸‰ä¸ªå»¶æ—¶éƒ½æ˜¯å¿…é¡»çš„
 		SimuI2C_Struct->PinSetSCL(1);
 		SimuI2C_Struct->Delayus(2); 
 		SimuI2C_Struct->PinSetSCL(0);	
@@ -137,14 +158,15 @@ void SimuI2C_WriteByte(SimuI2C *SimuI2C_Struct,unsigned char data)
 
 /*****************************************************************
 *Function:	SimuI2C_ReadByte
-*Description:	IIC¶ÁÒ»¸ö×Ö½Ú
-*Input:			Ä£ÄâI2C½á¹¹Ìå£¬Ó¦´ğĞÅºÅ
-*Output:		ÎŞ
-*Other:			ack=1Ê±£¬·¢ËÍACK£¬ack=0£¬·¢ËÍnACK   
+*Description:	IICè¯»ä¸€ä¸ªå­—èŠ‚
+*Input:			æ¨¡æ‹ŸI2Cç»“æ„ä½“ï¼Œåº”ç­”ä¿¡å·
+*Output:		æ— 
+*Other:			ack=1æ—¶ï¼Œå‘é€ACKï¼Œack=0ï¼Œå‘é€nACK   
 *****************************************************************/	    
 unsigned char SimuI2C_ReadByte(SimuI2C *SimuI2C_Struct,unsigned char ack)
 {
 	unsigned char i,receive=0;
+	SimuI2C_Struct->PinInInitSDA();
     for(i=0;i<8;i++ )
 	{
         SimuI2C_Struct->PinSetSCL(0); 
@@ -155,9 +177,9 @@ unsigned char SimuI2C_ReadByte(SimuI2C *SimuI2C_Struct,unsigned char ack)
 		SimuI2C_Struct->Delayus(1); 
     }					 
     if (!ack)
-        SimuI2C_NAck(SimuI2C_Struct);//·¢ËÍnACK
+        SimuI2C_NAck(SimuI2C_Struct);//å‘é€nACK
     else
-        SimuI2C_Ack(SimuI2C_Struct); //·¢ËÍACK   
+        SimuI2C_Ack(SimuI2C_Struct); //å‘é€ACK   
     return receive;
 }
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
   defaults_x_carve_1000mm.h - defaults settings configuration file
   Part of Grbl
 

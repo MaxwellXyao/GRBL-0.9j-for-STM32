@@ -1,4 +1,4 @@
-/*
+ï»¿/*
   nuts_bolts.h - Header file for shared definitions, variables, and functions
   Part of Grbl
 
@@ -35,8 +35,8 @@
 // CoreXY motor assignments. DO NOT ALTER.
 // NOTE: If the A and B motor axis bindings are changed, this effects the CoreXY equations.
 #ifdef COREXY
- #define A_MOTOR X_AXIS // Must be X_AXIS	±ØÐëÊÇX_AXIS
- #define B_MOTOR Y_AXIS // Must be Y_AXIS   ±ØÐëÊÇY_AXIS
+ #define A_MOTOR X_AXIS // Must be X_AXIS	å¿…é¡»æ˜¯X_AXIS
+ #define B_MOTOR Y_AXIS // Must be Y_AXIS   å¿…é¡»æ˜¯Y_AXIS
 #endif
 
 // Conversions	

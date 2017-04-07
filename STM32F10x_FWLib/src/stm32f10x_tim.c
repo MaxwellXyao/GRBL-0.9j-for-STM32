@@ -1016,7 +1016,7 @@ void TIM_ITRxExternalClockConfig(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSou
   TIMx->SMCR |= TIM_SlaveMode_External1;
 }
 
-/**		  
+/**
   * @brief  Configures the TIMx Trigger as External Clock
   * @param  TIMx: where x can be  1, 2, 3, 4, 5, 9, 12 or 15 to select the TIM peripheral.
   * @param  TIM_TIxExternalCLKSource: Trigger source.

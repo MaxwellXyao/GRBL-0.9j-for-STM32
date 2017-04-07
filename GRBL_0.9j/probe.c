@@ -1,4 +1,4 @@
-/*
+ï»¿/*
   probe.c - code pertaining to probing methods
   Part of Grbl
 
@@ -29,22 +29,22 @@ uint8_t probe_invert_mask;
 void probe_init(void) 
 { 
 #if defined(CPU_MAP_ATMEGA328P) || defined(CPU_MAP_ATMEGA2560)
-  PROBE_DDR &= ~(PROBE_MASK); // Configure as input pins	 ÅäÖÃÎªÊäÈëÒı½Å
+  PROBE_DDR &= ~(PROBE_MASK); // Configure as input pins	 é…ç½®ä¸ºè¾“å…¥å¼•è„š
   #ifdef DISABLE_PROBE_PIN_PULL_UP
-    PROBE_PORT &= ~(PROBE_MASK); // Normal low operation. Requires external pull-down.	 Õı³£µÍµçÆ½²Ù×÷¡£ ĞèÒªÍâ²¿ÏÂÀ­¡£
+    PROBE_PORT &= ~(PROBE_MASK); // Normal low operation. Requires external pull-down.	 æ­£å¸¸ä½ç”µå¹³æ“ä½œã€‚ éœ€è¦å¤–éƒ¨ä¸‹æ‹‰ã€‚
   #else
-    PROBE_PORT |= PROBE_MASK;    // Enable internal pull-up resistors. Normal high operation.  Ê¹ÄÜÄÚ²¿ÉÏÀ­µç×è¡£ ³£¸ßÔËĞĞ¡£
+    PROBE_PORT |= PROBE_MASK;    // Enable internal pull-up resistors. Normal high operation.  ä½¿èƒ½å†…éƒ¨ä¸Šæ‹‰ç”µé˜»ã€‚ å¸¸é«˜è¿è¡Œã€‚
   #endif
-  // probe_configure_invert_mask(false); // Initialize invert mask. Not required. Updated when in-use.	³õÊ¼»¯·´×ªÑÚÂë¡£²»ĞèÒª¡£ÔÚÊ¹ÓÃÊ±¸üĞÂ¡£
+  // probe_configure_invert_mask(false); // Initialize invert mask. Not required. Updated when in-use.	åˆå§‹åŒ–åè½¬æ©ç ã€‚ä¸éœ€è¦ã€‚åœ¨ä½¿ç”¨æ—¶æ›´æ–°ã€‚
 
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
   HW_GPIO_Init_In(PROBE_GPIO_CLK,PROBE_GPIO,PROBE_GPIO_PIN);
    #ifdef DISABLE_PROBE_PIN_PULL_UP
-    	HW_GPIO_Write(PROBE_GPIO,PROBE_GPIO_PIN,0);//ÏÂÀ­¡£
+    	HW_GPIO_Write(PROBE_GPIO,PROBE_GPIO_PIN,0);//ä¸‹æ‹‰ã€‚
   #else
-    	HW_GPIO_Write(PROBE_GPIO,PROBE_GPIO_PIN,1);//ÉÏÀ­¡£
+    	HW_GPIO_Write(PROBE_GPIO,PROBE_GPIO_PIN,1);//ä¸Šæ‹‰ã€‚
   #endif
 #endif		//end of CPU_MAP_STM32F10X
 }

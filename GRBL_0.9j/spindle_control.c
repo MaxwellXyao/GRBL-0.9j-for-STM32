@@ -1,4 +1,4 @@
-/*
+ï»¿/*
   spindle_control.c - spindle control methods
   Part of Grbl
 
@@ -27,28 +27,28 @@ void spindle_init(void)
 #if defined(CPU_MAP_ATMEGA328P) || defined(CPU_MAP_ATMEGA2560)
   // Configure variable spindle PWM and enable pin, if requried. On the Uno, PWM and enable are
   // combined unless configured otherwise.
-  //Èç¹ûĞèÒª£¬ÅäÖÃ¿É±äËÙÖ÷ÖáPWMºÍÊ¹ÄÜÒı½Å¡£ ÔÚUnoÉÏ£¬PWMºÍÊ¹ÄÜÒı½ÅÎ»ÖÃÖØºÏ£¬³ı·ÇÁíÓĞÅäÖÃ¡£
+  //å¦‚æœéœ€è¦ï¼Œé…ç½®å¯å˜é€Ÿä¸»è½´PWMå’Œä½¿èƒ½å¼•è„šã€‚ åœ¨Unoä¸Šï¼ŒPWMå’Œä½¿èƒ½å¼•è„šä½ç½®é‡åˆï¼Œé™¤éå¦æœ‰é…ç½®ã€‚
   #ifdef VARIABLE_SPINDLE
-    SPINDLE_PWM_DDR |= (1<<SPINDLE_PWM_BIT); // Configure as PWM output pin.  ÅäÖÃÎªPWMÒı½Å
+    SPINDLE_PWM_DDR |= (1<<SPINDLE_PWM_BIT); // Configure as PWM output pin.  é…ç½®ä¸ºPWMå¼•è„š
     #if defined(CPU_MAP_ATMEGA2560) || defined(USE_SPINDLE_DIR_AS_ENABLE_PIN)
-      SPINDLE_ENABLE_DDR |= (1<<SPINDLE_ENABLE_BIT); // Configure as output pin.   ÅäÖÃÎªÊä³öÒı½Å
+      SPINDLE_ENABLE_DDR |= (1<<SPINDLE_ENABLE_BIT); // Configure as output pin.   é…ç½®ä¸ºè¾“å‡ºå¼•è„š
     #endif     
-  // Configure no variable spindle and only enable pin.		ÅäÖÃÎŞ¿É±äËÙÖ÷Öá£¬½öÊ¹ÄÜÒı½Å¡£
+  // Configure no variable spindle and only enable pin.		é…ç½®æ— å¯å˜é€Ÿä¸»è½´ï¼Œä»…ä½¿èƒ½å¼•è„šã€‚
   #else  
-    SPINDLE_ENABLE_DDR |= (1<<SPINDLE_ENABLE_BIT); // Configure as output pin. ÅäÖÃÎªÊä³öÒı½Å
+    SPINDLE_ENABLE_DDR |= (1<<SPINDLE_ENABLE_BIT); // Configure as output pin. é…ç½®ä¸ºè¾“å‡ºå¼•è„š
   #endif
   
   #ifndef USE_SPINDLE_DIR_AS_ENABLE_PIN
-    SPINDLE_DIRECTION_DDR |= (1<<SPINDLE_DIRECTION_BIT); // Configure as output pin.   ÅäÖÃÎªÊä³öÒı½Å
+    SPINDLE_DIRECTION_DDR |= (1<<SPINDLE_DIRECTION_BIT); // Configure as output pin.   é…ç½®ä¸ºè¾“å‡ºå¼•è„š
   #endif
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
    #ifdef VARIABLE_SPINDLE
-	HW_PWM_Init(SPINDLE_PWM_GPIO_CLK,SPINDLE_PWM_GPIO,SPINDLE_PWM_GPIO_PIN,PWM_CLK,PWM_TIMER,PWM_MAX_VALUE);//PWM³õÊ¼»¯
-	HW_GPIO_Init_Out(SPINDLE_ENABLE_GPIO_CLK,SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN);	//Ê¹ÄÜ½Å³õÊ¼»¯
+	HW_PWM_Init(SPINDLE_PWM_GPIO_CLK,SPINDLE_PWM_GPIO,SPINDLE_PWM_GPIO_PIN,PWM_CLK,PWM_TIMER,PWM_MAX_VALUE);//PWMåˆå§‹åŒ–
+	HW_GPIO_Init_Out(SPINDLE_ENABLE_GPIO_CLK,SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN);	//ä½¿èƒ½è„šåˆå§‹åŒ–
    #else 
-	HW_GPIO_Init_Out(SPINDLE_ENABLE_GPIO_CLK,SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN);	//Ê¹ÄÜ½Å³õÊ¼»¯
+	HW_GPIO_Init_Out(SPINDLE_ENABLE_GPIO_CLK,SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN);	//ä½¿èƒ½è„šåˆå§‹åŒ–
    #endif
 
   #ifndef USE_SPINDLE_DIR_AS_ENABLE_PIN
@@ -67,36 +67,36 @@ void spindle_stop(void)
 #if defined(CPU_MAP_ATMEGA328P) || defined(CPU_MAP_ATMEGA2560)
   // On the Uno, spindle enable and PWM are shared. Other CPUs have seperate enable pin.  
   #ifdef VARIABLE_SPINDLE
-    TCCRA_REGISTER &= ~(1<<COMB_BIT); // Disable PWM. Output voltage is zero.	½ûÓÃPWM¡£ Êä³öµçÑ¹ÎªÁã¡£
+    TCCRA_REGISTER &= ~(1<<COMB_BIT); // Disable PWM. Output voltage is zero.	ç¦ç”¨PWMã€‚ è¾“å‡ºç”µå‹ä¸ºé›¶ã€‚
     #if defined(CPU_MAP_ATMEGA2560) || defined(USE_SPINDLE_DIR_AS_ENABLE_PIN)
       #ifdef INVERT_SPINDLE_ENABLE_PIN
-        SPINDLE_ENABLE_PORT |= (1<<SPINDLE_ENABLE_BIT);  // Set pin to high	 ½«Òı½ÅÉèÖÃÎª¸ß
+        SPINDLE_ENABLE_PORT |= (1<<SPINDLE_ENABLE_BIT);  // Set pin to high	 å°†å¼•è„šè®¾ç½®ä¸ºé«˜
       #else
-        SPINDLE_ENABLE_PORT &= ~(1<<SPINDLE_ENABLE_BIT); // Set pin to low	½«Òı½ÅÉèÖÃÎªµÍ
+        SPINDLE_ENABLE_PORT &= ~(1<<SPINDLE_ENABLE_BIT); // Set pin to low	å°†å¼•è„šè®¾ç½®ä¸ºä½
       #endif
     #endif
   #else
     #ifdef INVERT_SPINDLE_ENABLE_PIN
-      SPINDLE_ENABLE_PORT |= (1<<SPINDLE_ENABLE_BIT);  // Set pin to high  ½«Òı½ÅÉèÖÃÎª¸ß
+      SPINDLE_ENABLE_PORT |= (1<<SPINDLE_ENABLE_BIT);  // Set pin to high  å°†å¼•è„šè®¾ç½®ä¸ºé«˜
     #else
-      SPINDLE_ENABLE_PORT &= ~(1<<SPINDLE_ENABLE_BIT); // Set pin to low  ½«Òı½ÅÉèÖÃÎªµÍ
+      SPINDLE_ENABLE_PORT &= ~(1<<SPINDLE_ENABLE_BIT); // Set pin to low  å°†å¼•è„šè®¾ç½®ä¸ºä½
     #endif
   #endif  
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
   #ifdef VARIABLE_SPINDLE  
-	HW_PWM_Disable(PWM_TIMER); 		//PWMÊ§ÄÜ
+	HW_PWM_Disable(PWM_TIMER); 		//PWMå¤±èƒ½
       #ifdef INVERT_SPINDLE_ENABLE_PIN
-        HW_GPIO_Write(SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN,1);  //½«Òı½ÅÉèÖÃÎª¸ß
+        HW_GPIO_Write(SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN,1);  //å°†å¼•è„šè®¾ç½®ä¸ºé«˜
       #else
-        HW_GPIO_Write(SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN,0); //½«Òı½ÅÉèÖÃÎªµÍ
+        HW_GPIO_Write(SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN,0); //å°†å¼•è„šè®¾ç½®ä¸ºä½
       #endif
   #else
       #ifdef INVERT_SPINDLE_ENABLE_PIN
-        HW_GPIO_Write(SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN,1);  //½«Òı½ÅÉèÖÃÎª¸ß
+        HW_GPIO_Write(SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN,1);  //å°†å¼•è„šè®¾ç½®ä¸ºé«˜
       #else
-        HW_GPIO_Write(SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN,0); //½«Òı½ÅÉèÖÃÎªµÍ
+        HW_GPIO_Write(SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN,0); //å°†å¼•è„šè®¾ç½®ä¸ºä½
       #endif
   #endif 
 #endif		//end of CPU_MAP_STM32F10X
@@ -123,10 +123,10 @@ void spindle_set_state(uint8_t state, float rpm)
 
     #ifdef VARIABLE_SPINDLE
       // TODO: Install the optional capability for frequency-based output for servos.
-	  //TODO: °²×°»ùÓÚÆµÂÊµÄÊä³öµÄ¿ÉÑ¡¹¦ÄÜÒÔ¼æÈİ¶æ»ú¡£
+	  //TODO: å®‰è£…åŸºäºé¢‘ç‡çš„è¾“å‡ºçš„å¯é€‰åŠŸèƒ½ä»¥å…¼å®¹èˆµæœºã€‚
       #ifdef CPU_MAP_ATMEGA2560
       	TCCRA_REGISTER = (1<<COMB_BIT) | (1<<WAVE1_REGISTER) | (1<<WAVE0_REGISTER);
-        TCCRB_REGISTER = (TCCRB_REGISTER & 0b11111000) | 0x02 | (1<<WAVE2_REGISTER) | (1<<WAVE3_REGISTER); // set to 1/8 Prescaler	ÉèÖÃÎª1/8·ÖÆµ
+        TCCRB_REGISTER = (TCCRB_REGISTER & 0b11111000) | 0x02 | (1<<WAVE2_REGISTER) | (1<<WAVE3_REGISTER); // set to 1/8 Prescaler	è®¾ç½®ä¸º1/8åˆ†é¢‘
         OCR4A = 0xFFFF; // set the top 16bit value	
       #else
         TCCRA_REGISTER = (1<<COMB_BIT) | (1<<WAVE1_REGISTER) | (1<<WAVE0_REGISTER);
@@ -192,7 +192,7 @@ void spindle_set_state(uint8_t state, float rpm)
           if (current_pwm < MINIMUM_SPINDLE_PWM) { current_pwm = MINIMUM_SPINDLE_PWM; }
         #endif
 		HW_PWM_Write(PWM_TIMER,current_pwm); // Set PWM pin output
-    	HW_PWM_Enable(PWM_TIMER);			//Ê¹ÄÜ
+    	HW_PWM_Enable(PWM_TIMER);			//ä½¿èƒ½
         // On the Uno, spindle enable and PWM are shared, unless otherwise specified.	  
 	  #ifdef INVERT_SPINDLE_ENABLE_PIN
         HW_GPIO_Write(SPINDLE_ENABLE_GPIO,SPINDLE_ENABLE_GPIO_PIN,0);  

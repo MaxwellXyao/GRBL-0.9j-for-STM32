@@ -1,4 +1,4 @@
-/*
+ï»¿/*
   limits.c - code pertaining to limit-switches and performing the homing cycle
   Part of Grbl
 
@@ -33,17 +33,17 @@
 void limits_init(void) 
 {
 #if defined(CPU_MAP_ATMEGA328P) || defined(CPU_MAP_ATMEGA2560)
-  LIMIT_DDR &= ~(LIMIT_MASK); // Set as input pins	 ÉèÖÃÎªÊäÈëÒı½Å
+  LIMIT_DDR &= ~(LIMIT_MASK); // Set as input pins	 è®¾ç½®ä¸ºè¾“å…¥å¼•è„š
 
   #ifdef DISABLE_LIMIT_PIN_PULL_UP
-    LIMIT_PORT &= ~(LIMIT_MASK); // Normal low operation. Requires external pull-down.	 ³£µÍµçÆ½²Ù×÷¡£ĞèÒªÍâ²¿ÏÂÀ­¡£
+    LIMIT_PORT &= ~(LIMIT_MASK); // Normal low operation. Requires external pull-down.	 å¸¸ä½ç”µå¹³æ“ä½œã€‚éœ€è¦å¤–éƒ¨ä¸‹æ‹‰ã€‚
   #else
-    LIMIT_PORT |= (LIMIT_MASK);  // Enable internal pull-up resistors. Normal high operation. Ê¹ÄÜÄÚ²¿ÉÏÀ­µç×è¡£ ³£¸ßµçÆ½²Ù×÷¡£
+    LIMIT_PORT |= (LIMIT_MASK);  // Enable internal pull-up resistors. Normal high operation. ä½¿èƒ½å†…éƒ¨ä¸Šæ‹‰ç”µé˜»ã€‚ å¸¸é«˜ç”µå¹³æ“ä½œã€‚
   #endif
 
   if (bit_istrue(settings.flags,BITFLAG_HARD_LIMIT_ENABLE)) {
-    LIMIT_PCMSK |= LIMIT_MASK; // Enable specific pins of the Pin Change Interrupt	   Ê¹ÄÜÒı½ÅµçÆ½±ä»¯ÖĞ¶ÏµÄÌØ¶¨Òı½Å
-    PCICR |= (1 << LIMIT_INT); // Enable Pin Change Interrupt	 Ê¹ÄÜÒı½ÅµçÆ½±ä»¯ÖĞ¶Ï
+    LIMIT_PCMSK |= LIMIT_MASK; // Enable specific pins of the Pin Change Interrupt	   ä½¿èƒ½å¼•è„šç”µå¹³å˜åŒ–ä¸­æ–­çš„ç‰¹å®šå¼•è„š
+    PCICR |= (1 << LIMIT_INT); // Enable Pin Change Interrupt	 ä½¿èƒ½å¼•è„šç”µå¹³å˜åŒ–ä¸­æ–­
   } else {
     limits_disable(); 
   }
@@ -51,33 +51,33 @@ void limits_init(void)
   #ifdef ENABLE_SOFTWARE_DEBOUNCE	
     MCUSR &= ~(1<<WDRF);
     WDTCSR |= (1<<WDCE) | (1<<WDE);
-    WDTCSR = (1<<WDP0); // Set time-out at ~32msec.	ÉèÖÃÒç³öÊ±¼äÔ¼32ms
+    WDTCSR = (1<<WDP0); // Set time-out at ~32msec.	è®¾ç½®æº¢å‡ºæ—¶é—´çº¦32ms
   #endif
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
-   	HW_GPIO_Init_In(LIMIT_GPIO_CLK,LIMIT_GPIO,X_LIMIT_GPIO_PIN); 	//ÉèÖÃÎªÊäÈëÒı½Å
-	HW_GPIO_Init_In(LIMIT_GPIO_CLK,LIMIT_GPIO,Y_LIMIT_GPIO_PIN);	//ÉèÖÃÎªÊäÈëÒı½Å
-	HW_GPIO_Init_In(LIMIT_GPIO_CLK,LIMIT_GPIO,Z_LIMIT_GPIO_PIN);	//ÉèÖÃÎªÊäÈëÒı½Å
+   	HW_GPIO_Init_In(LIMIT_GPIO_CLK,LIMIT_GPIO,X_LIMIT_GPIO_PIN); 	//è®¾ç½®ä¸ºè¾“å…¥å¼•è„š
+	HW_GPIO_Init_In(LIMIT_GPIO_CLK,LIMIT_GPIO,Y_LIMIT_GPIO_PIN);	//è®¾ç½®ä¸ºè¾“å…¥å¼•è„š
+	HW_GPIO_Init_In(LIMIT_GPIO_CLK,LIMIT_GPIO,Z_LIMIT_GPIO_PIN);	//è®¾ç½®ä¸ºè¾“å…¥å¼•è„š
   #ifdef DISABLE_LIMIT_PIN_PULL_UP
-    HW_GPIO_Write(LIMIT_GPIO,X_LIMIT_GPIO_PIN,0);	//µÍµçÆ½
-	HW_GPIO_Write(LIMIT_GPIO,Y_LIMIT_GPIO_PIN,0);	//µÍµçÆ½
-	HW_GPIO_Write(LIMIT_GPIO,Z_LIMIT_GPIO_PIN,0);	//µÍµçÆ½
+    HW_GPIO_Write(LIMIT_GPIO,X_LIMIT_GPIO_PIN,0);	//ä½ç”µå¹³
+	HW_GPIO_Write(LIMIT_GPIO,Y_LIMIT_GPIO_PIN,0);	//ä½ç”µå¹³
+	HW_GPIO_Write(LIMIT_GPIO,Z_LIMIT_GPIO_PIN,0);	//ä½ç”µå¹³
   #else
-   	HW_GPIO_Write(LIMIT_GPIO,X_LIMIT_GPIO_PIN,1);	//¸ßµçÆ½
-	HW_GPIO_Write(LIMIT_GPIO,Y_LIMIT_GPIO_PIN,1);	//¸ßµçÆ½
-	HW_GPIO_Write(LIMIT_GPIO,Z_LIMIT_GPIO_PIN,1);	//¸ßµçÆ½
+   	HW_GPIO_Write(LIMIT_GPIO,X_LIMIT_GPIO_PIN,1);	//é«˜ç”µå¹³
+	HW_GPIO_Write(LIMIT_GPIO,Y_LIMIT_GPIO_PIN,1);	//é«˜ç”µå¹³
+	HW_GPIO_Write(LIMIT_GPIO,Z_LIMIT_GPIO_PIN,1);	//é«˜ç”µå¹³
   #endif
 	if (bit_istrue(settings.flags,BITFLAG_HARD_LIMIT_ENABLE)) {
- 		HW_EXTI_Init(LIMIT_INT_PORTSOURCE,X_LIMIT_INT_PINSOURCE,X_LIMIT_INT_LINE,EXTI_Trigger_Falling);	//µÍµçÆ½/ÏÂ½µÑØ´¥·¢
-		HW_EXTI_Init(LIMIT_INT_PORTSOURCE,Y_LIMIT_INT_PINSOURCE,Y_LIMIT_INT_LINE,EXTI_Trigger_Falling);	//µÍµçÆ½/ÏÂ½µÑØ´¥·¢
-		HW_EXTI_Init(LIMIT_INT_PORTSOURCE,Z_LIMIT_INT_PINSOURCE,Z_LIMIT_INT_LINE,EXTI_Trigger_Falling);	//µÍµçÆ½/ÏÂ½µÑØ´¥·¢
-		HW_EXTI_Enable(LIMIT_INT_CHANNEL,0,0);	//Ê¹ÄÜÖĞ¶Ï
+ 		HW_EXTI_Init(LIMIT_INT_PORTSOURCE,X_LIMIT_INT_PINSOURCE,X_LIMIT_INT_LINE,EXTI_Trigger_Falling);	//ä½ç”µå¹³/ä¸‹é™æ²¿è§¦å‘
+		HW_EXTI_Init(LIMIT_INT_PORTSOURCE,Y_LIMIT_INT_PINSOURCE,Y_LIMIT_INT_LINE,EXTI_Trigger_Falling);	//ä½ç”µå¹³/ä¸‹é™æ²¿è§¦å‘
+		HW_EXTI_Init(LIMIT_INT_PORTSOURCE,Z_LIMIT_INT_PINSOURCE,Z_LIMIT_INT_LINE,EXTI_Trigger_Falling);	//ä½ç”µå¹³/ä¸‹é™æ²¿è§¦å‘
+		HW_EXTI_Enable(LIMIT_INT_CHANNEL,0,0);	//ä½¿èƒ½ä¸­æ–­
   	} else {
     	limits_disable(); 
   	}
-  #ifdef ENABLE_SOFTWARE_DEBOUNCE	//Ê¹ÄÜÈí¼şÈ¥¶¶
-	HW_Debounce_Init();		//È¥¶¶¶¨Ê±Æ÷³õÊ¼»¯
+  #ifdef ENABLE_SOFTWARE_DEBOUNCE	//ä½¿èƒ½è½¯ä»¶å»æŠ–
+	HW_Debounce_Init();		//å»æŠ–å®šæ—¶å™¨åˆå§‹åŒ–
   #endif
 #endif		//end of CPU_MAP_STM32F10X
 
@@ -221,23 +221,23 @@ uint8_t limits_get_state(void)
   // Upon limit pin change, enable watchdog timer to create a short delay. 	 
   	void EXTI15_10_IRQHandler(void)
 	{ 	
-		EXTI_ClearITPendingBit(X_LIMIT_INT_LINE|Y_LIMIT_INT_LINE|Z_LIMIT_INT_LINE);  //Çå³ıÖĞ¶Ï±êÖ¾Î»
-		HW_Debounce_Enable();	//Ê¹ÄÜÈ¥¶¶¶¨Ê±Æ÷
+		EXTI_ClearITPendingBit(X_LIMIT_INT_LINE|Y_LIMIT_INT_LINE|Z_LIMIT_INT_LINE);  //æ¸…é™¤ä¸­æ–­æ ‡å¿—ä½
+		HW_Debounce_Enable();	//ä½¿èƒ½å»æŠ–å®šæ—¶å™¨
 	}
-	//¶¨Ê±Æ÷1ÖĞ¶Ï·şÎñ³ÌĞò
+	//å®šæ—¶å™¨1ä¸­æ–­æœåŠ¡ç¨‹åº
 	void TIM1_UP_IRQHandler(void)
 	{
 		if(TIM_GetITStatus(TIM1,TIM_IT_Update)!=RESET)
 		{
 			TIM_ClearITPendingBit(TIM1,TIM_FLAG_Update);
-			HW_Debounce_Disable();	//³ıÄÜÈ¥¶¶¶¨Ê±Æ÷
+			HW_Debounce_Disable();	//é™¤èƒ½å»æŠ–å®šæ—¶å™¨
 
-			if (sys.state != STATE_ALARM) {  // Ignore if already in alarm state.	 ºöÂÔÒÑ¾­´¦ÓÚµÄ±¨¾¯×´Ì¬
+			if (sys.state != STATE_ALARM) {  // Ignore if already in alarm state.	 å¿½ç•¥å·²ç»å¤„äºçš„æŠ¥è­¦çŠ¶æ€
 	      		if (!(sys_rt_exec_alarm)) {
-	        		// Check limit pin state.  ¼ì²éÏŞÎ»Òı½Å×´Ì¬
+	        		// Check limit pin state.  æ£€æŸ¥é™ä½å¼•è„šçŠ¶æ€
 	        		if (limits_get_state()) {
-	         		 mc_reset(); // Initiate system kill.	  Æô¶¯ÏµÍ³ÖÕÖ¹
-	         		 bit_true_atomic(sys_rt_exec_alarm, (EXEC_ALARM_HARD_LIMIT|EXEC_CRITICAL_EVENT)); // Indicate hard limit critical event   Ö¸Ê¾Ó²¼şÏŞÎ»µÄ¹Ø¼üÊÂ¼ş
+	         		 mc_reset(); // Initiate system kill.	  å¯åŠ¨ç³»ç»Ÿç»ˆæ­¢
+	         		 bit_true_atomic(sys_rt_exec_alarm, (EXEC_ALARM_HARD_LIMIT|EXEC_CRITICAL_EVENT)); // Indicate hard limit critical event   æŒ‡ç¤ºç¡¬ä»¶é™ä½çš„å…³é”®äº‹ä»¶
 	        		}
 	      		}  
 	    	}

@@ -1,4 +1,4 @@
-/*
+﻿/*
   gcode.c - rs274/ngc parser.
   Part of Grbl
 

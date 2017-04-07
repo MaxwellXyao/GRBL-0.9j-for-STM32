@@ -1,4 +1,4 @@
-/*
+﻿/*
   settings.c - eeprom configuration handling 
   Part of Grbl
 

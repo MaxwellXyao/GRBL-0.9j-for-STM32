@@ -1,4 +1,4 @@
-/*
+﻿/*
   defaults_simulator.h - defaults settings configuration file
   Part of Grbl
 

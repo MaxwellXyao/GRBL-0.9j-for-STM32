@@ -1,35 +1,35 @@
-#include "Hardware.h"
+ï»¿#include "Hardware.h"
 
-//´Ë´¦´úÂë½«ÊµÏÖGPIOµÄ¹¦ÄÜ¿ØÖÆ£¬°üÀ¨³õÊ¼»¯£¬ÉèÖÃÒı½ÅµçÆ½ºÍ¶ÁÈ¡Òı½ÅµçÆ½¡£
+//æ­¤å¤„ä»£ç å°†å®ç°GPIOçš„åŠŸèƒ½æ§åˆ¶ï¼ŒåŒ…æ‹¬åˆå§‹åŒ–ï¼Œè®¾ç½®å¼•è„šç”µå¹³å’Œè¯»å–å¼•è„šç”µå¹³ã€‚
 void HW_GPIO_Init_Out(u32 gpio_clk,GPIO_TypeDef * gpio,u16 gpio_pin)			
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
-	RCC_APB2PeriphClockCmd(gpio_clk,ENABLE);	 			//Ê¹ÄÜ¶Ë¿ÚÊ±ÖÓ
-	GPIO_InitStructure.GPIO_Pin = gpio_pin;						//¶Ë¿ÚÅäÖÃ
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 	//ÍÆÍìÊä³ö
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 	//IO¿ÚËÙ¶ÈÎª50MHz
-	GPIO_Init(gpio, &GPIO_InitStructure);					//¸ù¾İÉè¶¨²ÎÊı³õÊ¼»¯
+	RCC_APB2PeriphClockCmd(gpio_clk,ENABLE);	 			//ä½¿èƒ½ç«¯å£æ—¶é’Ÿ
+	GPIO_InitStructure.GPIO_Pin = gpio_pin;						//ç«¯å£é…ç½®
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 	//æ¨æŒ½è¾“å‡º
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 	//IOå£é€Ÿåº¦ä¸º50MHz
+	GPIO_Init(gpio, &GPIO_InitStructure);					//æ ¹æ®è®¾å®šå‚æ•°åˆå§‹åŒ–
 }
 
 void HW_GPIO_Init_In(u32 gpio_clk,GPIO_TypeDef * gpio,u16 gpio_pin)			
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
-	RCC_APB2PeriphClockCmd(gpio_clk,ENABLE);	 			//Ê¹ÄÜ¶Ë¿ÚÊ±ÖÓ
-	GPIO_InitStructure.GPIO_Pin = gpio_pin;						//¶Ë¿ÚÅäÖÃ
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 		 		//ÉÏÀ­ÊäÈë
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 	//IO¿ÚËÙ¶ÈÎª50MHz
-	GPIO_Init(gpio, &GPIO_InitStructure);					//¸ù¾İÉè¶¨²ÎÊı³õÊ¼»¯
+	RCC_APB2PeriphClockCmd(gpio_clk,ENABLE);	 			//ä½¿èƒ½ç«¯å£æ—¶é’Ÿ
+	GPIO_InitStructure.GPIO_Pin = gpio_pin;						//ç«¯å£é…ç½®
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 		 		//ä¸Šæ‹‰è¾“å…¥
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 	//IOå£é€Ÿåº¦ä¸º50MHz
+	GPIO_Init(gpio, &GPIO_InitStructure);					//æ ¹æ®è®¾å®šå‚æ•°åˆå§‹åŒ–
 }
 
 void HW_GPIO_Write(GPIO_TypeDef * gpio,u16 gpio_pin,u8 val)
 {
-	if(val==0) GPIO_ResetBits(gpio,gpio_pin);				//Òı½ÅÊä³öµÍµçÆ½
-	else GPIO_SetBits(gpio,gpio_pin);						//Òı½ÅÊä³ö¸ßµçÆ½
+	if(val==0) GPIO_ResetBits(gpio,gpio_pin);				//å¼•è„šè¾“å‡ºä½ç”µå¹³
+	else GPIO_SetBits(gpio,gpio_pin);						//å¼•è„šè¾“å‡ºé«˜ç”µå¹³
 }
 
 u8 HW_GPIO_Read(GPIO_TypeDef * gpio,u16 gpio_pin)
 {
-	return GPIO_ReadInputDataBit(gpio,gpio_pin);			//·µ»ØÒı½ÅµçÆ½
+	return GPIO_ReadInputDataBit(gpio,gpio_pin);			//è¿”å›å¼•è„šç”µå¹³
 }
 
 

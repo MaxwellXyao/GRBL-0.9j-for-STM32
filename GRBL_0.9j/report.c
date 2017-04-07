@@ -1,4 +1,4 @@
-/*
+ï»¿/*
   report.c - reporting and messaging methods
   Part of Grbl
 
@@ -29,7 +29,7 @@
 #include "grbl.h"
 
 #if defined(CPU_MAP_STM32F10X)
-  #define PSTR(str) (const char *)(str)		//½«×Ö·û´®ÒÆ¶¯µ½flashÖÐ	
+  #define PSTR(str) (const char *)(str)		//å°†å­—ç¬¦ä¸²ç§»åŠ¨åˆ°flashä¸­	
 #endif		//end of CPU_MAP_STM32F10X
 
 // Handles the primary confirmation protocol response for streaming interfaces and human-feedback.

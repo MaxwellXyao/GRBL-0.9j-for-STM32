@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="project_proj.xsd">
 
-  <SchemaVersion>1.0</SchemaVersion>
+  <SchemaVersion>1.1</SchemaVersion>
 
   <Header>### uVision Project, (C) Keil Software</Header>
 
@@ -29,6 +29,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
+          <SFDFile></SFDFile>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
           <IncludePath></IncludePath>
@@ -52,7 +53,7 @@
           <ListingPath>.\_list\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
-          <CreateBatchFile>1</CreateBatchFile>
+          <CreateBatchFile>0</CreateBatchFile>
           <BeforeCompile>
             <RunUserProg1>0</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
@@ -60,6 +61,8 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopU1X>0</nStopU1X>
+            <nStopU2X>0</nStopU2X>
           </BeforeCompile>
           <BeforeMake>
             <RunUserProg1>0</RunUserProg1>
@@ -133,6 +136,7 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
+            <RestoreTracepoints>0</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>7</TargetSelection>
@@ -341,6 +345,7 @@
             <Rwpi>0</Rwpi>
             <wLevel>0</wLevel>
             <uThumb>0</uThumb>
+            <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
@@ -356,6 +361,7 @@
             <SplitLS>0</SplitLS>
             <SwStkChk>0</SwStkChk>
             <NoWarn>0</NoWarn>
+            <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -406,64 +412,14 @@
           <GroupName>GRBL_0.9j</GroupName>
           <Files>
             <File>
-              <FileName>eeprom.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\eeprom.c</FilePath>
-            </File>
-            <File>
-              <FileName>nuts_bolts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\nuts_bolts.c</FilePath>
-            </File>
-            <File>
               <FileName>coolant_control.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\GRBL_0.9j\coolant_control.c</FilePath>
             </File>
             <File>
-              <FileName>serial.c</FileName>
+              <FileName>eeprom.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\serial.c</FilePath>
-            </File>
-            <File>
-              <FileName>print.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\print.c</FilePath>
-            </File>
-            <File>
-              <FileName>report.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\report.c</FilePath>
-            </File>
-            <File>
-              <FileName>probe.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\probe.c</FilePath>
-            </File>
-            <File>
-              <FileName>spindle_control.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\spindle_control.c</FilePath>
-            </File>
-            <File>
-              <FileName>limits.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\limits.c</FilePath>
-            </File>
-            <File>
-              <FileName>settings.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\settings.c</FilePath>
-            </File>
-            <File>
-              <FileName>system.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\system.c</FilePath>
-            </File>
-            <File>
-              <FileName>stepper.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\stepper.c</FilePath>
+              <FilePath>..\GRBL_0.9j\eeprom.c</FilePath>
             </File>
             <File>
               <FileName>gcode.c</FileName>
@@ -471,9 +427,34 @@
               <FilePath>..\GRBL_0.9j\gcode.c</FilePath>
             </File>
             <File>
+              <FileName>limits.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\GRBL_0.9j\limits.c</FilePath>
+            </File>
+            <File>
+              <FileName>motion_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\GRBL_0.9j\motion_control.c</FilePath>
+            </File>
+            <File>
+              <FileName>nuts_bolts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\GRBL_0.9j\nuts_bolts.c</FilePath>
+            </File>
+            <File>
               <FileName>planner.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\GRBL_0.9j\planner.c</FilePath>
+            </File>
+            <File>
+              <FileName>print.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\GRBL_0.9j\print.c</FilePath>
+            </File>
+            <File>
+              <FileName>probe.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\GRBL_0.9j\probe.c</FilePath>
             </File>
             <File>
               <FileName>protocol.c</FileName>
@@ -481,9 +462,34 @@
               <FilePath>..\GRBL_0.9j\protocol.c</FilePath>
             </File>
             <File>
-              <FileName>motion_control.c</FileName>
+              <FileName>report.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\GRBL_0.9j\motion_control.c</FilePath>
+              <FilePath>..\GRBL_0.9j\report.c</FilePath>
+            </File>
+            <File>
+              <FileName>serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\GRBL_0.9j\serial.c</FilePath>
+            </File>
+            <File>
+              <FileName>settings.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\GRBL_0.9j\settings.c</FilePath>
+            </File>
+            <File>
+              <FileName>spindle_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\GRBL_0.9j\spindle_control.c</FilePath>
+            </File>
+            <File>
+              <FileName>stepper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\GRBL_0.9j\stepper.c</FilePath>
+            </File>
+            <File>
+              <FileName>system.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\GRBL_0.9j\system.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -519,41 +525,6 @@
               <FileName>simui2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\SYSTEM\simui2c.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>HARDWARE</GroupName>
-          <Files>
-            <File>
-              <FileName>HW_GPIO.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\HW_GPIO.c</FilePath>
-            </File>
-            <File>
-              <FileName>HW_USART.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\HW_USART.c</FilePath>
-            </File>
-            <File>
-              <FileName>HW_TIM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\HW_TIM.c</FilePath>
-            </File>
-            <File>
-              <FileName>HW_EEPROM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\HW_EEPROM.c</FilePath>
-            </File>
-            <File>
-              <FileName>HW_EXTI.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\HW_EXTI.c</FilePath>
-            </File>
-            <File>
-              <FileName>HW_PWM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\HW_PWM.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -674,6 +645,41 @@
               <FileName>stm32f10x_wwdg.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32F10x_FWLib\src\stm32f10x_wwdg.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>HARDWARE</GroupName>
+          <Files>
+            <File>
+              <FileName>HW_EEPROM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\HW_EEPROM.c</FilePath>
+            </File>
+            <File>
+              <FileName>HW_EXTI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\HW_EXTI.c</FilePath>
+            </File>
+            <File>
+              <FileName>HW_GPIO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\HW_GPIO.c</FilePath>
+            </File>
+            <File>
+              <FileName>HW_PWM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\HW_PWM.c</FilePath>
+            </File>
+            <File>
+              <FileName>HW_TIM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\HW_TIM.c</FilePath>
+            </File>
+            <File>
+              <FileName>HW_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\HW_USART.c</FilePath>
             </File>
           </Files>
         </Group>

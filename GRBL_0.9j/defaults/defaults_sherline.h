@@ -1,4 +1,4 @@
-/*
+﻿/*
   defaults_sherline.h - defaults settings configuration file
   Part of Grbl
 

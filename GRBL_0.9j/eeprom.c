@@ -1,4 +1,4 @@
-// This file has been prepared for Doxygen automatic documentation generation.
+ï»¿// This file has been prepared for Doxygen automatic documentation generation.
 /*! \file ********************************************************************
 *
 * Atmel Corporation
@@ -138,11 +138,11 @@ unsigned char eeprom_get_char( unsigned int addr )
 	unsigned char data;
 	cli(); 
 	// Ensure atomic operation for the read/write operation
-	//È·±£¶ÁÐ´²Ù×÷µÄÔ­×ÓÐÔ
-	data=HW_EEPROM_getChar(addr);	//¶ÁÈ¡Ò»¸ö×Ö½Ú	
+	//ç¡®ä¿è¯»å†™æ“ä½œçš„åŽŸå­æ€§
+	data=HW_EEPROM_getChar(addr);	//è¯»å–ä¸€ä¸ªå­—èŠ‚	
 	sei(); 
 	// Restore interrupt flag state.
-	//»Ö¸´ÖÐ¶Ï±êÖ¾×´Ì¬
+	//æ¢å¤ä¸­æ–­æ ‡å¿—çŠ¶æ€
 	return(data); 
 }
 
@@ -150,18 +150,18 @@ void eeprom_put_char( unsigned int addr, unsigned char new_value )
 {	
 	cli(); 
 	// Ensure atomic operation for the read/write operation.
-	//È·±£¶ÁÐ´²Ù×÷µÄÔ­×ÓÐÔ
-	HW_EEPROM_putChar(addr,new_value);	 //Ð´ÈëÒ»¸ö×Ö½Ú
+	//ç¡®ä¿è¯»å†™æ“ä½œçš„åŽŸå­æ€§
+	HW_EEPROM_putChar(addr,new_value);	 //å†™å…¥ä¸€ä¸ªå­—èŠ‚
 	sei(); 
 	// Restore interrupt flag state.
-	//»Ö¸´ÖÐ¶Ï±êÖ¾×´Ì¬
+	//æ¢å¤ä¸­æ–­æ ‡å¿—çŠ¶æ€
 //==========================================
 }
 
 #endif		//end of CPU_MAP_STM32F10X
 
 
-void memcpy_to_eeprom_with_checksum(unsigned int destination, char *source, unsigned int size) {  //´øÐ£ÑéºÍµÄÏòEEPROMÖÐÐ´ÈëÊý¾Ý
+void memcpy_to_eeprom_with_checksum(unsigned int destination, char *source, unsigned int size) {  //å¸¦æ ¡éªŒå’Œçš„å‘EEPROMä¸­å†™å…¥æ•°æ®
   unsigned char checksum = 0;
   for(; size > 0; size--) { 
     checksum = (checksum << 1) || (checksum >> 7);
@@ -171,7 +171,7 @@ void memcpy_to_eeprom_with_checksum(unsigned int destination, char *source, unsi
   eeprom_put_char(destination, checksum);
 }
 
-int memcpy_from_eeprom_with_checksum(char *destination, unsigned int source, unsigned int size) {  //´øÐ£ÑéºÍµÄ´ÓEEPROMÖÐ¶Á³öÊý¾Ý
+int memcpy_from_eeprom_with_checksum(char *destination, unsigned int source, unsigned int size) {  //å¸¦æ ¡éªŒå’Œçš„ä»ŽEEPROMä¸­è¯»å‡ºæ•°æ®
   unsigned char data, checksum = 0;
   for(; size > 0; size--) { 
     data = eeprom_get_char(source++);

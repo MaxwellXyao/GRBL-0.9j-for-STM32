@@ -1,4 +1,4 @@
-/*
+ï»¿/*
   system.c - Handles system level commands and real-time processes
   Part of Grbl
 
@@ -27,43 +27,43 @@ volatile uint8_t sys_rt_exec_alarm;  // Global realtime executor bitflag variabl
 #if defined(CPU_MAP_ATMEGA328P) || defined(CPU_MAP_ATMEGA2560)
 void system_init() 
 {
-  CONTROL_DDR &= ~(CONTROL_MASK); // Configure as input pins   ÅäÖÃÎªÊäÈëÒı½Å
+  CONTROL_DDR &= ~(CONTROL_MASK); // Configure as input pins   é…ç½®ä¸ºè¾“å…¥å¼•è„š
   #ifdef DISABLE_CONTROL_PIN_PULL_UP
-    CONTROL_PORT &= ~(CONTROL_MASK); // Normal low operation. Requires external pull-down.	³£µÍµçÆ½²Ù×÷¡£ ĞèÒªÍâ²¿ÏÂÀ­¡£
+    CONTROL_PORT &= ~(CONTROL_MASK); // Normal low operation. Requires external pull-down.	å¸¸ä½ç”µå¹³æ“ä½œã€‚ éœ€è¦å¤–éƒ¨ä¸‹æ‹‰ã€‚
   #else
-    CONTROL_PORT |= CONTROL_MASK;   // Enable internal pull-up resistors. Normal high operation.Ê¹ÄÜÄÚ²¿ÉÏÀ­µç×è¡£³£¸ßÔËĞĞ¡£
+    CONTROL_PORT |= CONTROL_MASK;   // Enable internal pull-up resistors. Normal high operation.ä½¿èƒ½å†…éƒ¨ä¸Šæ‹‰ç”µé˜»ã€‚å¸¸é«˜è¿è¡Œã€‚
   #endif
-  CONTROL_PCMSK |= CONTROL_MASK;  // Enable specific pins of the Pin Change Interrupt	ÆôÓÃÒı½ÅµçÆ½±ä»¯ÖĞ¶ÏµÄÌØ¶¨Òı½Å
-  PCICR |= (1 << CONTROL_INT);   // Enable Pin Change Interrupt	  Ê¹ÄÜÒı½ÅµçÆ½±ä»¯ÖĞ¶Ï
+  CONTROL_PCMSK |= CONTROL_MASK;  // Enable specific pins of the Pin Change Interrupt	å¯ç”¨å¼•è„šç”µå¹³å˜åŒ–ä¸­æ–­çš„ç‰¹å®šå¼•è„š
+  PCICR |= (1 << CONTROL_INT);   // Enable Pin Change Interrupt	  ä½¿èƒ½å¼•è„šç”µå¹³å˜åŒ–ä¸­æ–­
 }
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
 void system_init() 
 {
-  	HW_GPIO_Init_In(CONTROL_GPIO_CLK,CONTROL_GPIO,RESET_GPIO_PIN);		//ÅäÖÃÎªÊäÈëÒı½Å
-	HW_GPIO_Init_In(CONTROL_GPIO_CLK,CONTROL_GPIO,FEED_HOLD_GPIO_PIN);	//ÅäÖÃÎªÊäÈëÒı½Å
-	HW_GPIO_Init_In(CONTROL_GPIO_CLK,CONTROL_GPIO,CYCLE_START_GPIO_PIN);//ÅäÖÃÎªÊäÈëÒı½Å
-	HW_GPIO_Init_In(CONTROL_GPIO_CLK,CONTROL_GPIO,SAFETY_DOOR_GPIO_PIN);//ÅäÖÃÎªÊäÈëÒı½Å
+  	HW_GPIO_Init_In(CONTROL_GPIO_CLK,CONTROL_GPIO,RESET_GPIO_PIN);		//é…ç½®ä¸ºè¾“å…¥å¼•è„š
+	HW_GPIO_Init_In(CONTROL_GPIO_CLK,CONTROL_GPIO,FEED_HOLD_GPIO_PIN);	//é…ç½®ä¸ºè¾“å…¥å¼•è„š
+	HW_GPIO_Init_In(CONTROL_GPIO_CLK,CONTROL_GPIO,CYCLE_START_GPIO_PIN);//é…ç½®ä¸ºè¾“å…¥å¼•è„š
+	HW_GPIO_Init_In(CONTROL_GPIO_CLK,CONTROL_GPIO,SAFETY_DOOR_GPIO_PIN);//é…ç½®ä¸ºè¾“å…¥å¼•è„š
 
-  	HW_EXTI_Init(CONTROL_INT_PORTSOURCE,RESET_INT_PINSOURCE,RESET_INT_LINE,EXTI_Trigger_Falling);	//µÍµçÆ½/ÏÂ½µÑØ´¥·¢
-	HW_EXTI_Init(CONTROL_INT_PORTSOURCE,FEED_HOLD_INT_PINSOURCE,FEED_HOLD_INT_LINE,EXTI_Trigger_Falling);	//µÍµçÆ½/ÏÂ½µÑØ´¥·¢
-	HW_EXTI_Init(CONTROL_INT_PORTSOURCE,CYCLE_START_INT_PINSOURCE,CYCLE_START_INT_LINE,EXTI_Trigger_Falling);	//µÍµçÆ½/ÏÂ½µÑØ´¥·¢
-	HW_EXTI_Init(CONTROL_INT_PORTSOURCE,SAFETY_DOOR_INT_PINSOURCE,SAFETY_DOOR_INT_LINE,EXTI_Trigger_Falling);	//µÍµçÆ½/ÏÂ½µÑØ´¥·¢
+  	HW_EXTI_Init(CONTROL_INT_PORTSOURCE,RESET_INT_PINSOURCE,RESET_INT_LINE,EXTI_Trigger_Falling);	//ä½ç”µå¹³/ä¸‹é™æ²¿è§¦å‘
+	HW_EXTI_Init(CONTROL_INT_PORTSOURCE,FEED_HOLD_INT_PINSOURCE,FEED_HOLD_INT_LINE,EXTI_Trigger_Falling);	//ä½ç”µå¹³/ä¸‹é™æ²¿è§¦å‘
+	HW_EXTI_Init(CONTROL_INT_PORTSOURCE,CYCLE_START_INT_PINSOURCE,CYCLE_START_INT_LINE,EXTI_Trigger_Falling);	//ä½ç”µå¹³/ä¸‹é™æ²¿è§¦å‘
+	HW_EXTI_Init(CONTROL_INT_PORTSOURCE,SAFETY_DOOR_INT_PINSOURCE,SAFETY_DOOR_INT_LINE,EXTI_Trigger_Falling);	//ä½ç”µå¹³/ä¸‹é™æ²¿è§¦å‘
 
 
   #ifdef DISABLE_CONTROL_PIN_PULL_UP
-	HW_GPIO_Write(CONTROL_GPIO,RESET_GPIO_PIN,0);		//µÍµçÆ½
-	HW_GPIO_Write(CONTROL_GPIO,FEED_HOLD_GPIO_PIN,0);	//µÍµçÆ½ 
-	HW_GPIO_Write(CONTROL_GPIO,CYCLE_START_GPIO_PIN,0);	//µÍµçÆ½ 
-	HW_GPIO_Write(CONTROL_GPIO,SAFETY_DOOR_GPIO_PIN,0);	//µÍµçÆ½
+	HW_GPIO_Write(CONTROL_GPIO,RESET_GPIO_PIN,0);		//ä½ç”µå¹³
+	HW_GPIO_Write(CONTROL_GPIO,FEED_HOLD_GPIO_PIN,0);	//ä½ç”µå¹³ 
+	HW_GPIO_Write(CONTROL_GPIO,CYCLE_START_GPIO_PIN,0);	//ä½ç”µå¹³ 
+	HW_GPIO_Write(CONTROL_GPIO,SAFETY_DOOR_GPIO_PIN,0);	//ä½ç”µå¹³
   #else
-	HW_GPIO_Write(CONTROL_GPIO,RESET_GPIO_PIN,1);		//¸ßµçÆ½
-	HW_GPIO_Write(CONTROL_GPIO,FEED_HOLD_GPIO_PIN,1);	//¸ßµçÆ½ 
-	HW_GPIO_Write(CONTROL_GPIO,CYCLE_START_GPIO_PIN,1);	//¸ßµçÆ½ 
-	HW_GPIO_Write(CONTROL_GPIO,SAFETY_DOOR_GPIO_PIN,1);	//¸ßµçÆ½
+	HW_GPIO_Write(CONTROL_GPIO,RESET_GPIO_PIN,1);		//é«˜ç”µå¹³
+	HW_GPIO_Write(CONTROL_GPIO,FEED_HOLD_GPIO_PIN,1);	//é«˜ç”µå¹³ 
+	HW_GPIO_Write(CONTROL_GPIO,CYCLE_START_GPIO_PIN,1);	//é«˜ç”µå¹³ 
+	HW_GPIO_Write(CONTROL_GPIO,SAFETY_DOOR_GPIO_PIN,1);	//é«˜ç”µå¹³
   #endif
-	HW_EXTI_Enable(CONTROL_INT_CHANNEL,0,0);	//Ê¹ÄÜÖĞ¶Ï
+	HW_EXTI_Enable(CONTROL_INT_CHANNEL,0,0);	//ä½¿èƒ½ä¸­æ–­
 }
 #endif		//end of CPU_MAP_STM32F10X
 
@@ -109,7 +109,7 @@ void EXTI9_5_IRQHandler(void)
   #ifndef INVERT_ALL_CONTROL_PINS
 	pin ^= CONTROL_INVERT_MASK;
   #endif
-	// Enter only if any CONTROL pin is detected as active.Ö»ÓĞÔÚ¼ì²âµ½ÈÎºÎ¿ØÖÆÒı½ÅÓĞĞ§Ê±£¬²ÅÊäÈë
+	// Enter only if any CONTROL pin is detected as active.åªæœ‰åœ¨æ£€æµ‹åˆ°ä»»ä½•æ§åˆ¶å¼•è„šæœ‰æ•ˆæ—¶ï¼Œæ‰è¾“å…¥
 	if (pin) { 
 		if (bit_istrue(pin,bit(RESET_BIT))) {
 			mc_reset();
@@ -124,7 +124,7 @@ void EXTI9_5_IRQHandler(void)
 	  #endif
 		} 
 	}
-	EXTI_ClearITPendingBit(RESET_INT_LINE|FEED_HOLD_INT_LINE|CYCLE_START_INT_LINE|SAFETY_DOOR_INT_LINE);  //Çå³ıÖĞ¶Ï±êÖ¾Î»  
+	EXTI_ClearITPendingBit(RESET_INT_LINE|FEED_HOLD_INT_LINE|CYCLE_START_INT_LINE|SAFETY_DOOR_INT_LINE);  //æ¸…é™¤ä¸­æ–­æ ‡å¿—ä½  
 }
 #endif		//end of CPU_MAP_STM32F10X
 
@@ -265,7 +265,7 @@ uint8_t system_execute_line(char *line)
             // Only perform homing if Grbl is idle or lost.	
             
             // TODO: Likely not required.
-			//TODO£º
+			//TODOï¼š
             if (system_check_safety_door_ajar()) { // Check safety door switch before homing.  
               bit_true(sys_rt_exec_state, EXEC_SAFETY_DOOR);
               protocol_execute_realtime(); // Enter safety door mode.  

@@ -1,4 +1,4 @@
-#include "project_include.h"
+ï»¿#include "project_include.h"
 #include "grbl.h"
 
 // Declare system global variable structure
@@ -7,8 +7,8 @@ system_t sys;
 
 int main(void)
 {		
-	JTAG_Set(SWD_ENABLE);			//JTAG½Ó¿Ú×´Ì¬ÉèÖÃ
-	delay_init(); 					//ÑÓÊ±³õÊ¼»¯
+	JTAG_Set(SWD_ENABLE);			//JTAGæ¥å£çŠ¶æ€è®¾ç½®
+	delay_init(); 					//å»¶æ—¶åˆå§‹åŒ–
 
 	// Initialize system upon power-up.
 	serial_init();   // Setup serial baud rate and interrupts

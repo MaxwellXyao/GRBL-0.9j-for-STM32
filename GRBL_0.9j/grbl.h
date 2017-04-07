@@ -1,4 +1,4 @@
-/*
+﻿/*
   grbl.h - main Grbl include file
   Part of Grbl
 

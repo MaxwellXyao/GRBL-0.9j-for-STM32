@@ -1,19 +1,19 @@
-#include "Hardware.h"
+ï»¿#include "Hardware.h"
 
 void HW_EXTI_Init(u8 int_portsource,u8 int_pinsource,u32 int_line,EXTITrigger_TypeDef trig)
 {
 	EXTI_InitTypeDef EXTI_InitStructure;
 
-  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);	//Ê¹ÄÜ¸´ÓÃ¹¦ÄÜÊ±ÖÓ
+  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);	//ä½¿èƒ½å¤ç”¨åŠŸèƒ½æ—¶é’Ÿ
 
-  	//ÖĞ¶ÏÏßÒÔ¼°ÖĞ¶Ï³õÊ¼»¯ÅäÖÃ
+  	//ä¸­æ–­çº¿ä»¥åŠä¸­æ–­åˆå§‹åŒ–é…ç½®
   	GPIO_EXTILineConfig(int_portsource,int_pinsource);
 
   	EXTI_InitStructure.EXTI_Line = int_line;
   	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;	
   	EXTI_InitStructure.EXTI_Trigger = trig;			
   	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-  	EXTI_Init(&EXTI_InitStructure);	 					//¸ù¾İEXTI_InitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯ÍâÉèEXTI¼Ä´æÆ÷
+  	EXTI_Init(&EXTI_InitStructure);	 					//æ ¹æ®EXTI_InitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–å¤–è®¾EXTIå¯„å­˜å™¨
 
 
  	
@@ -22,20 +22,20 @@ void HW_EXTI_Init(u8 int_portsource,u8 int_pinsource,u32 int_line,EXTITrigger_Ty
 void HW_EXTI_Enable(u8 int_channel,u8 preemption_priority,u8 sub_priority)
 {
  	NVIC_InitTypeDef NVIC_InitStructure;
-    NVIC_InitStructure.NVIC_IRQChannel = int_channel;							//Ê¹ÄÜÍâ²¿ÖĞ¶ÏÍ¨µÀ
-  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = preemption_priority;	//ÇÀÕ¼ÓÅÏÈ¼¶ 
-  	NVIC_InitStructure.NVIC_IRQChannelSubPriority = sub_priority;				//×ÓÓÅÏÈ¼¶
-  	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;								//Ê¹ÄÜÍâ²¿ÖĞ¶ÏÍ¨µÀ
+    NVIC_InitStructure.NVIC_IRQChannel = int_channel;							//ä½¿èƒ½å¤–éƒ¨ä¸­æ–­é€šé“
+  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = preemption_priority;	//æŠ¢å ä¼˜å…ˆçº§ 
+  	NVIC_InitStructure.NVIC_IRQChannelSubPriority = sub_priority;				//å­ä¼˜å…ˆçº§
+  	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;								//ä½¿èƒ½å¤–éƒ¨ä¸­æ–­é€šé“
   	NVIC_Init(&NVIC_InitStructure);	
 }
 
 void HW_EXTI_Disable(u8 int_channel,u8 preemption_priority,u8 sub_priority)
 {
  	NVIC_InitTypeDef NVIC_InitStructure;
-    NVIC_InitStructure.NVIC_IRQChannel = int_channel;							//Ê¹ÄÜÍâ²¿ÖĞ¶ÏÍ¨µÀ
-  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = preemption_priority;	//ÇÀÕ¼ÓÅÏÈ¼¶ 
-  	NVIC_InitStructure.NVIC_IRQChannelSubPriority = sub_priority;				//×ÓÓÅÏÈ¼¶
-  	NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;							//Ê¹ÄÜÍâ²¿ÖĞ¶ÏÍ¨µÀ
+    NVIC_InitStructure.NVIC_IRQChannel = int_channel;							//ä½¿èƒ½å¤–éƒ¨ä¸­æ–­é€šé“
+  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = preemption_priority;	//æŠ¢å ä¼˜å…ˆçº§ 
+  	NVIC_InitStructure.NVIC_IRQChannelSubPriority = sub_priority;				//å­ä¼˜å…ˆçº§
+  	NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;							//ä½¿èƒ½å¤–éƒ¨ä¸­æ–­é€šé“
   	NVIC_Init(&NVIC_InitStructure);		
 }
 

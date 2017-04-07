@@ -1,4 +1,4 @@
-/*
+﻿/*
   limits.h - code pertaining to limit-switches and performing the homing cycle
   Part of Grbl
 
