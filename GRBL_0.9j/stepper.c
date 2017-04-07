@@ -142,11 +142,11 @@ static st_prep_t prep;
 
 /*    BLOCK VELOCITY PROFILE DEFINITION 
           __________________________
-         /|                        |\     _________________         ^
-        / |                        | \   /|               |\        |
-       /  |                        |  \ / |               | \       s
-      /   |                        |   |  |               |  \      p
-     /    |                        |   |  |               |   \     e
+         /|                        |`     _________________         ^
+        / |                        | `   /|               |`        |
+       /  |                        |  ` / |               | `       s
+      /   |                        |   |  |               |  `      p
+     /    |                        |   |  |               |   `     e
     +-----+------------------------+---+--+---------------+----+    e
     |               BLOCK 1            ^      BLOCK 2          |    d
                                        |
@@ -161,9 +161,9 @@ static st_prep_t prep;
   triangle(no cruise).
 
                                         maximum_speed (< nominal_speed) ->  + 
-                    +--------+ <- maximum_speed (= nominal_speed)          /|\                                         
-                   /          \                                           / | \                      
- current_speed -> +            \                                         /  |  + <- exit_speed
+                    +--------+ <- maximum_speed (= nominal_speed)          /|`                                         
+                   /          `                                           / | `                      
+ current_speed -> +            `                                         /  |  + <- exit_speed
                   |             + <- exit_speed                         /   |  |                       
                   +-------------+                     current_speed -> +----+--+                   
                    time -->  ^  ^                                           ^  ^                       
@@ -211,10 +211,10 @@ void st_wake_up(void)
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
-// ²½½øµç»ú×´Ì¬³õÊ¼»¯. Ñ­»·Ö»¿ÉÔÚst.cycle_start±ê¼ÇÊ¹ÄÜÊ±¿ªÆô. Æô¶¯ºÍÏŞÎ»²¿·Ö´úÂë»áµ÷ÓÃÕâ¸öº¯Êıµ«ÊÇ²»»á¿ªÆôÑ­»·.
+// æ­¥è¿›ç”µæœºçŠ¶æ€åˆå§‹åŒ–. å¾ªç¯åªå¯åœ¨st.cycle_startæ ‡è®°ä½¿èƒ½æ—¶å¼€å¯. å¯åŠ¨å’Œé™ä½éƒ¨åˆ†ä»£ç ä¼šè°ƒç”¨è¿™ä¸ªå‡½æ•°ä½†æ˜¯ä¸ä¼šå¼€å¯å¾ªç¯.
 void st_wake_up(void) 
 {
-  // Enable stepper drivers.Ê¹ÄÜ²½½øµç»úÇı¶¯
+  // Enable stepper drivers.ä½¿èƒ½æ­¥è¿›ç”µæœºé©±åŠ¨
   if (bit_istrue(settings.flags,BITFLAG_INVERT_ST_ENABLE)) { HW_GPIO_Write(STEPPERS_DISABLE_GPIO,STEPPERS_DISABLE_GPIO_PIN,1);}
   else { HW_GPIO_Write(STEPPERS_DISABLE_GPIO,STEPPERS_DISABLE_GPIO_PIN,0);}
 
@@ -234,7 +234,7 @@ void st_wake_up(void)
       st.step_pulse_time = settings.pulse_microseconds-2;    
     #endif
 
-    HW_TIM_DriverInterrupt_Enable(); 					//¿ªÆô¶¨Ê±Æ÷
+    HW_TIM_DriverInterrupt_Enable(); 					//å¼€å¯å®šæ—¶å™¨
   }
 }
 #endif		//end of CPU_MAP_STM32F10X
@@ -269,7 +269,7 @@ void st_go_idle(void)
 {
   bool pin_state;
   // Disable Stepper Driver Interrupt. Allow Stepper Port Reset Interrupt to finish, if active.
-  HW_TIM_DriverInterrupt_Disable(); 					//¹Ø±Õ¶¨Ê±Æ÷
+  HW_TIM_DriverInterrupt_Disable(); 					//å…³é—­å®šæ—¶å™¨
   busy = false;
   
   // Set stepper driver idle state, disabled or enabled, depending on settings and circumstances.
@@ -462,15 +462,15 @@ ISR(TIMER1_COMPA_vect)
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
-void TIM3_IRQHandler(void)   //TIM3ÖĞ¶Ï:The Stepper Driver Interrupt
+void TIM3_IRQHandler(void)   //TIM3ä¸­æ–­:The Stepper Driver Interrupt
 {
-	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)  //¼ì²éTIM3¸üĞÂÖĞ¶Ï·¢ÉúÓë·ñ
+	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)  //æ£€æŸ¥TIM3æ›´æ–°ä¸­æ–­å‘ç”Ÿä¸å¦
 	{
-		TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //Çå³ıTIM3¸üĞÂÖĞ¶Ï±êÖ¾ 
-		if (busy) { return; } // The busy-flag is used to avoid reentering this interrupt	 Ã¦Âµ±êÖ¾ÓÃÓÚ·ÀÖ¹ÖØ¸´½øÈë´ËÖĞ¶Ï
+		TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //æ¸…é™¤TIM3æ›´æ–°ä¸­æ–­æ ‡å¿— 
+		if (busy) { return; } // The busy-flag is used to avoid reentering this interrupt	 å¿™ç¢Œæ ‡å¿—ç”¨äºé˜²æ­¢é‡å¤è¿›å…¥æ­¤ä¸­æ–­
 		
 		// Set the direction pins a couple of nanoseconds before we step the steppers
-		//ÔÚÉèÖÃ²½½øÂö³åÒı½ÅÇ°¼¸¸öÄÉÃëÇ°ÉèÖÃ·½ÏòÒı½Å	
+		//åœ¨è®¾ç½®æ­¥è¿›è„‰å†²å¼•è„šå‰å‡ ä¸ªçº³ç§’å‰è®¾ç½®æ–¹å‘å¼•è„š	
 		HW_GPIO_Write(DIRECTION_GPIO,X_DIRECTION_GPIO_PIN,bit_istrue(st.dir_outbits,bit(X_DIRECTION_BIT)));
 		HW_GPIO_Write(DIRECTION_GPIO,Y_DIRECTION_GPIO_PIN,bit_istrue(st.dir_outbits,bit(Y_DIRECTION_BIT)));
 		HW_GPIO_Write(DIRECTION_GPIO,Z_DIRECTION_GPIO_PIN,bit_istrue(st.dir_outbits,bit(Z_DIRECTION_BIT)));
@@ -489,8 +489,8 @@ void TIM3_IRQHandler(void)   //TIM3ÖĞ¶Ï:The Stepper Driver Interrupt
     
 		// TCNT0 = st.step_pulse_time; // Reload Timer0 counter
 		// TCCR0B = (1<<CS01); // Begin Timer0. Full speed, 1/8 prescaler
-		HW_TIM_PortResetInterrupt_ValueConfig(71,st.step_pulse_time); 	//ÉèÖÃ¶¨Ê±Æ÷ÖØ×°Öµ
-    	HW_TIM_PortResetInterrupt_Enable();  				//¿ªÆô¶¨Ê±Æ÷
+		HW_TIM_PortResetInterrupt_ValueConfig(8,st.step_pulse_time); 	//è®¾ç½®å®šæ—¶å™¨é‡è£…å€¼
+    	HW_TIM_PortResetInterrupt_Enable();  				//å¼€å¯å®šæ—¶å™¨
 		
 		busy = true;
 		sei(); // Re-enable interrupts to allow Stepper Port Reset Interrupt to fire on-time. 
@@ -505,10 +505,10 @@ void TIM3_IRQHandler(void)   //TIM3ÖĞ¶Ï:The Stepper Driver Interrupt
 		
       // Initialize step segment timing per step and load number of steps to execute.    
 #ifdef ADAPTIVE_MULTI_AXIS_STEP_SMOOTHING
-        HW_TIM_DriverInterrupt_ValueConfig(8,st.exec_segment->cycles_per_tick>>1);		//Ê¹ÄÜAMASSËã·¨¾ÍÊ¹ÓÃ¹Ì¶¨Öµ·ÖÆµ¡¾·ÖÆµÖµĞèÒªµ÷Õû¡¿
+        HW_TIM_DriverInterrupt_ValueConfig(8,st.exec_segment->cycles_per_tick>>1);		//ä½¿èƒ½AMASSç®—æ³•å°±ä½¿ç”¨å›ºå®šå€¼åˆ†é¢‘ã€16Mä¸åˆ†é¢‘ã€‘
 #else
 				// With AMASS is disabled, set timer prescaler for segments with slow step frequencies (< 250Hz).
-        HW_TIM_DriverInterrupt_ValueConfig(st.exec_segment->prescaler,st.exec_segment->cycles_per_tick);		//²»Ê¹ÄÜAMASSËã·¨¾ÍÊ¹ÓÃÓ²¼ş·ÖÖ§²úÉú·ÖÆµ
+        HW_TIM_DriverInterrupt_ValueConfig(st.exec_segment->prescaler,st.exec_segment->cycles_per_tick);		//ä¸ä½¿èƒ½AMASSç®—æ³•å°±ä½¿ç”¨ç¡¬ä»¶åˆ†æ”¯äº§ç”Ÿåˆ†é¢‘
 #endif
         
 
@@ -622,17 +622,17 @@ ISR(TIMER0_OVF_vect)
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
-void TIM4_IRQHandler(void)   //TIM4ÖĞ¶Ï:The Stepper Port Reset Interrupt
+void TIM4_IRQHandler(void)   //TIM4ä¸­æ–­:The Stepper Port Reset Interrupt
 {
-	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)  //¼ì²éTIM4¸üĞÂÖĞ¶Ï·¢ÉúÓë·ñ
+	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)  //æ£€æŸ¥TIM4æ›´æ–°ä¸­æ–­å‘ç”Ÿä¸å¦
 	{
-		TIM_ClearITPendingBit(TIM4, TIM_IT_Update  );  //Çå³ıTIM4¸üĞÂÖĞ¶Ï±êÖ¾ 
-		// ¸´Î»²½½øÂö³å¿ØÖÆÒı½Å£¨²»Ó°Ïì·½Ïò¿ØÖÆÒı½Å£©
+		TIM_ClearITPendingBit(TIM4, TIM_IT_Update  );  //æ¸…é™¤TIM4æ›´æ–°ä¸­æ–­æ ‡å¿— 
+		// å¤ä½æ­¥è¿›è„‰å†²æ§åˆ¶å¼•è„šï¼ˆä¸å½±å“æ–¹å‘æ§åˆ¶å¼•è„šï¼‰
 		HW_GPIO_Write(STEP_GPIO,X_STEP_GPIO_PIN,bit_istrue(step_port_invert_mask,bit(X_STEP_BIT)));
 		HW_GPIO_Write(STEP_GPIO,Y_STEP_GPIO_PIN,bit_istrue(step_port_invert_mask,bit(Y_STEP_BIT)));
 		HW_GPIO_Write(STEP_GPIO,Z_STEP_GPIO_PIN,bit_istrue(step_port_invert_mask,bit(Z_STEP_BIT)));
 
-		HW_TIM_PortResetInterrupt_Disable();	//¹Ø±Õ¶¨Ê±Æ÷
+		HW_TIM_PortResetInterrupt_Disable();	//å…³é—­å®šæ—¶å™¨
 	}
 }
 #endif		//end of CPU_MAP_STM32F10X
@@ -689,7 +689,7 @@ void st_reset(void)
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
-// ¸´Î»ºÍÇå³ı²½½øµç»ú×ÓÏµÍ³±äÁ¿
+// å¤ä½å’Œæ¸…é™¤æ­¥è¿›ç”µæœºå­ç³»ç»Ÿå˜é‡
 void st_reset(void)
 {
   // Initialize stepper driver idle state.
@@ -707,7 +707,7 @@ void st_reset(void)
   
   st_generate_step_dir_invert_masks();
       
-  //³õÊ¼»¯²½½øÂö³åºÍ·½Ïò¶Ë¿ÚÒı½Å
+  //åˆå§‹åŒ–æ­¥è¿›è„‰å†²å’Œæ–¹å‘ç«¯å£å¼•è„š
 //  STEP_PORT = (STEP_PORT & ~STEP_MASK) | step_port_invert_mask;
   HW_GPIO_Write(STEP_GPIO,X_STEP_GPIO_PIN,bit_istrue(step_port_invert_mask,bit(X_STEP_BIT)));
   HW_GPIO_Write(STEP_GPIO,Y_STEP_GPIO_PIN,bit_istrue(step_port_invert_mask,bit(Y_STEP_BIT)));
@@ -752,10 +752,10 @@ void stepper_init(void)
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
-// ³õÊ¼»¯ºÍ¿ªÆô²½½øµç»ú×ÓÄ£¿é
+// åˆå§‹åŒ–å’Œå¼€å¯æ­¥è¿›ç”µæœºå­æ¨¡å—
 void stepper_init(void)
 {
-  //³õÊ¼»¯²½½øºÍ·½Ïò½Ó¿ÚÒı½Å
+  //åˆå§‹åŒ–æ­¥è¿›å’Œæ–¹å‘æ¥å£å¼•è„š
   HW_GPIO_Init_Out(STEP_GPIO_CLK,STEP_GPIO,X_STEP_GPIO_PIN);
   HW_GPIO_Init_Out(STEP_GPIO_CLK,STEP_GPIO,Y_STEP_GPIO_PIN);
   HW_GPIO_Init_Out(STEP_GPIO_CLK,STEP_GPIO,Z_STEP_GPIO_PIN);
@@ -764,7 +764,7 @@ void stepper_init(void)
   HW_GPIO_Init_Out(DIRECTION_GPIO_CLK,DIRECTION_GPIO,Z_DIRECTION_GPIO_PIN);
   HW_GPIO_Init_Out(STEPPERS_DISABLE_GPIO_CLK,STEPPERS_DISABLE_GPIO,STEPPERS_DISABLE_GPIO_PIN);
 
-  HW_TIM_Init();				//¶¨Ê±Æ÷³õÊ¼»¯
+  HW_TIM_Init();				//å®šæ—¶å™¨åˆå§‹åŒ–
 
   #ifdef STEP_PULSE_DELAY
     TIMSK0 |= (1<<OCIE0A); // Enable Timer0 Compare Match A interrupt
@@ -806,7 +806,7 @@ void st_prep_buffer(void)
 	float intersect_distance;
 	segment_t *prep_segment;
 	float dt_max; // Maximum segment time
-	float dt=0; // Initialize segment time
+	float dt; // Initialize segment time
 	float time_var; // Time worker variable
 	float mm_var; // mm-Distance worker variable
 	float speed_var; // Speed worker variable   
@@ -955,6 +955,7 @@ void st_prep_buffer(void)
     */
     dt_max = DT_SEGMENT; // Maximum segment time
     time_var = dt_max; // Time worker variable
+	dt=0.0; // Initialize segment time
     mm_remaining = pl_block->millimeters; // New segment distance from end of block.
     minimum_mm = mm_remaining-prep.req_mm_increment; // Guarantee at least one step.
     if (minimum_mm < 0.0) { minimum_mm = 0.0; }
@@ -1078,20 +1079,23 @@ void st_prep_buffer(void)
         prep_segment->n_step <<= prep_segment->amass_level;
       }
       if (cycles < (1UL << 16)) { prep_segment->cycles_per_tick = cycles; } // < 65536 (4.1ms @ 16MHz)
+	  /************************************************************
+		æ­¤å¤„å¯ä»¥å¾—çŸ¥AMASSç®—æ³•ä½¿ç”¨çš„æ˜¯16MHzä¸‹ä¸åˆ†é¢‘çš„å›ºå®šå®šæ—¶æ—¶é—´
+	  ************************************************************/
       else { prep_segment->cycles_per_tick = 0xffff; } // Just set the slowest speed possible.
     #else 
 #if defined(CPU_MAP_ATMEGA328P) || defined(CPU_MAP_ATMEGA2560)
 
       // Compute step timing and timer prescalar for normal step generation.
-      if (cycles < (1UL << 16)) { // < 65536  (4.1ms @ 16MHz)  4.1ms<==1(²»·ÖÆµ)*×î´ó¿ÉÌîÈë65535/16MHz (±¾·ÖÖ§¿ÉÒÔ²úÉúµÄ×î³¤µÄ¶¨Ê±Ê±¼ä)
+      if (cycles < (1UL << 16)) { // < 65536  (4.1ms @ 16MHz)  4.1ms<==1(ä¸åˆ†é¢‘)*æœ€å¤§å¯å¡«å…¥65535/16MHz (æœ¬åˆ†æ”¯å¯ä»¥äº§ç”Ÿçš„æœ€é•¿çš„å®šæ—¶æ—¶é—´)
         prep_segment->prescaler = 1; // prescaler: 0
         prep_segment->cycles_per_tick = cycles;
-      } else if (cycles < (1UL << 19)) { // < 524288 (32.8ms@16MHz)     32.8ms<==8·ÖÆµ*×î´ó¿ÉÌîÈë65535/16MHz 
+      } else if (cycles < (1UL << 19)) { // < 524288 (32.8ms@16MHz)     32.8ms<==8åˆ†é¢‘*æœ€å¤§å¯å¡«å…¥65535/16MHz 
         prep_segment->prescaler = 2; // prescaler: 8
         prep_segment->cycles_per_tick = cycles >> 3;
       } else { 
         prep_segment->prescaler = 3; // prescaler: 64
-        if (cycles < (1UL << 22)) { // < 4194304 (262ms@16MHz)        262ms<<==64·ÖÆµ*×î´ó¿ÉÌîÈë65535/16MHz   
+        if (cycles < (1UL << 22)) { // < 4194304 (262ms@16MHz)        262ms<<==64åˆ†é¢‘*æœ€å¤§å¯å¡«å…¥65535/16MHz   
           prep_segment->cycles_per_tick =  cycles >> 6;
         } else { // Just set the slowest speed possible. (Around 4 step/sec.)
           prep_segment->cycles_per_tick = 0xffff;
@@ -1101,10 +1105,10 @@ void st_prep_buffer(void)
 #endif		//end of CPU_MAP_ATMEGA328P & CPU_MAP_ATMEGA2560
 
 #if defined(CPU_MAP_STM32F10X)
-      //½«cyclesÖµ±ä³É¶¨Ê±Æ÷¶¨Ê±µÄÊ±¼ä
-      //stm32µÄpsc¼Ä´æÆ÷16Î»£¬·ÖÆµ¿ÉÒÔÉèÖÃµÄÏ¸»¯Ò»Ğ© 
-      //Ã¿Ò»¶¨Ê±·ÖÖ§¸ô¶ÏÌõ¼ş£ºcycles < 65535*2^r (r=0,1,2,...) 
-      //Ã¿Ò»¶¨Ê±·ÖÖ§×î³¤Ê±¼ä(s)=(4.5*2^r)*65535/72MHz
+      //å°†cycleså€¼å˜æˆå®šæ—¶å™¨å®šæ—¶çš„æ—¶é—´
+      //stm32çš„pscå¯„å­˜å™¨16ä½ï¼Œåˆ†é¢‘å¯ä»¥è®¾ç½®çš„ç»†åŒ–ä¸€äº› 
+      //æ¯ä¸€å®šæ—¶åˆ†æ”¯éš”æ–­æ¡ä»¶ï¼šcycles < 65535*2^r (r=0,1,2,...) 
+      //æ¯ä¸€å®šæ—¶åˆ†æ”¯æœ€é•¿æ—¶é—´(s)=(4.5*2^r)*65535/72MHz
       if (cycles < (1UL << 16)) { // < 65536  (4.1ms @ 72MHz)    
         prep_segment->prescaler = 8 ; // prescaler: 4.5 
         prep_segment->cycles_per_tick = cycles>>1;      
