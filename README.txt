@@ -1,52 +1,52 @@
-¡¾SOL¿ªÔ´¡¿GRBL-0.9j-for-STM32
+ï»¿ã€SOLå¼€æºã€‘GRBL-0.9j-for-STM32
 
 
 --------------------------------------------------------
-1.ÒÆÖ²ËµÃ÷£º
+1.ç§»æ¤è¯´æ˜Žï¼š
 
-ÒÆÖ²Æ½Ì¨£ºSTM32F103C8T6
-ÒÆÖ²GRBL°æ±¾£º0.9j.20160726
+ç§»æ¤å¹³å°ï¼šSTM32F103C8T6
+ç§»æ¤GRBLç‰ˆæœ¬ï¼š0.9j.20160726
 
-µ±Ç°×´Ì¬£º
-£¨1£©ËùÓÐÒÑ¾­µ÷ÊÔÍ¨¹ý£¬ÎÞwarning£»
-£¨2£©ËùÓÐ²¿¼þ¿ÉÒÔÕý³£ÔËÐÐ£¬²¢¾­¹ýÊµ»ú²âÊÔ¡£
+å½“å‰çŠ¶æ€ï¼š
+ï¼ˆ1ï¼‰æ‰€æœ‰å·²ç»è°ƒè¯•é€šè¿‡ï¼Œæ— warningï¼›
+ï¼ˆ2ï¼‰æ‰€æœ‰éƒ¨ä»¶å¯ä»¥æ­£å¸¸è¿è¡Œï¼Œå¹¶ç»è¿‡å®žæœºæµ‹è¯•ã€‚
 
 --------------------------------------------------------
-2.×ÊÔ´Ê¹ÓÃ£º
+2.èµ„æºä½¿ç”¨ï¼š
 
-£¨1£©Òý½Å£¨¾ßÌå¿É²Î¿¼cpu_map_stm32f10x.hÎÄ¼þ£©
+ï¼ˆ1ï¼‰å¼•è„šï¼ˆå…·ä½“å¯å‚è€ƒcpu_map_stm32f10x.hæ–‡ä»¶ï¼‰
 
-²½½øµç»ú-XÖáÂö³å	£º	GPIOB5
-²½½øµç»ú-YÖáÂö³å	£º	GPIOB6
-²½½øµç»ú-ZÖáÂö³å	£º	GPIOB7
-²½½øµç»ú-XÖá·½Ïò	£º	GPIOB8
-²½½øµç»ú-YÖá·½Ïò	£º	GPIOB9
-²½½øµç»ú-ZÖá·½Ïò	£º	GPIOB10
-²½½øµç»ú-Ê¹ÄÜ		£º	GPIOB11
-ÀäÈ´-FLOOD		£º	GPIOB3	
-ÀäÈ´-MIST£¨M7£©		£º	GPIOB4
-Ö÷Öá-PWM		£º	GPIOA0
-Ö÷Öá-Ê¹ÄÜ		£º	GPIOA1
-Ö÷Öá-·½Ïò		£º	GPIOA2
-G38Ì½²âÆ÷		£º	GPIOA4
-ÏµÍ³-¸´Î»		£º	GPIOA5
-ÏµÍ³-¸ø½ø±£³Ö		£º	GPIOA6
-ÏµÍ³-Ñ­»·¿ªÊ¼		£º	GPIOA7
-ÏµÍ³-°²È«ÃÅ		£º	GPIOA8
-´®¿Ú-TX			£º	GPIOA9
-´®¿Ú-RX			£º	GPIOA10
-ÏÞÎ»-XÖá		£º	GPIOA11
-ÏÞÎ»-YÖá		£º	GPIOA12
-ÏÞÎ»-ZÖá		£º	GPIOA15
-µ÷ÊÔ-SWDIO		£º	GPIOA13
-µ÷ÊÔ-SWCLK		£º	GPIOA14
+æ­¥è¿›ç”µæœº-Xè½´è„‰å†²	ï¼š	GPIOB5
+æ­¥è¿›ç”µæœº-Yè½´è„‰å†²	ï¼š	GPIOB6
+æ­¥è¿›ç”µæœº-Zè½´è„‰å†²	ï¼š	GPIOB7
+æ­¥è¿›ç”µæœº-Xè½´æ–¹å‘	ï¼š	GPIOB8
+æ­¥è¿›ç”µæœº-Yè½´æ–¹å‘	ï¼š	GPIOB9
+æ­¥è¿›ç”µæœº-Zè½´æ–¹å‘	ï¼š	GPIOB10
+æ­¥è¿›ç”µæœº-ä½¿èƒ½		ï¼š	GPIOB11
+å†·å´-FLOOD		ï¼š	GPIOB3	
+å†·å´-MISTï¼ˆM7ï¼‰		ï¼š	GPIOB4
+ä¸»è½´-PWM		ï¼š	GPIOA0
+ä¸»è½´-ä½¿èƒ½		ï¼š	GPIOA1
+ä¸»è½´-æ–¹å‘		ï¼š	GPIOA2
+G38æŽ¢æµ‹å™¨		ï¼š	GPIOA4
+ç³»ç»Ÿ-å¤ä½		ï¼š	GPIOA5
+ç³»ç»Ÿ-ç»™è¿›ä¿æŒ		ï¼š	GPIOA6
+ç³»ç»Ÿ-å¾ªçŽ¯å¼€å§‹		ï¼š	GPIOA7
+ç³»ç»Ÿ-å®‰å…¨é—¨		ï¼š	GPIOA8
+ä¸²å£-TX			ï¼š	GPIOA9
+ä¸²å£-RX			ï¼š	GPIOA10
+é™ä½-Xè½´		ï¼š	GPIOA11
+é™ä½-Yè½´		ï¼š	GPIOA12
+é™ä½-Zè½´		ï¼š	GPIOA15
+è°ƒè¯•-SWDIO		ï¼š	GPIOA13
+è°ƒè¯•-SWCLK		ï¼š	GPIOA14
 
-¿ÕÏÐ			£º	GPIOA3£¬GPIOB0£¬GPIOB1
-¿ÕÏÐ-SPI		£º	GPIOB12£¬GPIOB13£¬GPIOB14£¬GPIOB15
+ç©ºé—²			ï¼š	GPIOA3ï¼ŒGPIOB0ï¼ŒGPIOB1
+ç©ºé—²-SPI		ï¼š	GPIOB12ï¼ŒGPIOB13ï¼ŒGPIOB14ï¼ŒGPIOB15
 
-£¨2£©´æ´¢Æ÷
-ROM£¨ÎÞÓÅ»¯£©		£º	43.22kB
-FLASH×öÎªEEPROM		£º	1kB£¨¿É×ÔÓÉµ÷Õû£©
+ï¼ˆ2ï¼‰å­˜å‚¨å™¨
+ROMï¼ˆæ— ä¼˜åŒ–ï¼‰		ï¼š	43.22kB
+FLASHåšä¸ºEEPROM		ï¼š	1kBï¼ˆå¯è‡ªç”±è°ƒæ•´ï¼‰
 
 
 
